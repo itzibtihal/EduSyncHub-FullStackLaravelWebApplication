@@ -12,4 +12,11 @@ class DirectorController extends Controller
         // Logic for teacher dashboard
         return view('Director.dashboard');
     }
+
+    
+    public function students()
+    {
+        
+        return view('Director.users.students.index');
+    }
 }
