@@ -64,6 +64,13 @@
                     </span>
                     <h3>Dashboard</h3>
                 </a>
+                <a href="{{route('institutions.index')}}" class="{{ request()->routeIs('institutions.index') ? 'active' : '' }}">
+                    <span class="material-icons-sharp">
+                        domain_add
+                    </span>
+                    <h3> institutions</h3>
+                </a>
+
                 <a href="{{route('director.students')}}" class="{{ request()->routeIs('director.students') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         person_outline
@@ -71,7 +78,7 @@
                     <h3>Students</h3>
                 </a>
 
-                <a href="" class="{{ request()->routeIs('') ? 'active' : '' }}">
+                <a href="{{route('director.professors')}}" class="{{ request()->routeIs('director.professors') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         group
                     </span>
@@ -101,12 +108,7 @@
                     <h3>Exams</h3>
                 </a>
 
-                <a href="" class="{{ request()->routeIs('') ? 'active' : '' }}">
-                    <span class="material-icons-sharp">
-                        receipt_long
-                    </span>
-                    <h3> Pend Booking</h3>
-                </a>
+                
 
                 
 

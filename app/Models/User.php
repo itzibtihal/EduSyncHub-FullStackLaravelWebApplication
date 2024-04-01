@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+    public function institutions()
+    {
+        return $this->belongsToMany(Institution::class, 'user_institution');
+    }
 }

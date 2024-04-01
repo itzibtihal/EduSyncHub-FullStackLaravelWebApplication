@@ -5,6 +5,8 @@ use App\Http\Controllers\v1\Director\DirectorController;
 use App\Http\Controllers\v1\Professor\ProfessorController;
 use App\Http\Controllers\v1\Student\StudentController;
 use App\Helpers\RoleHelper;
+use App\Http\Controllers\v1\Director\InstitutionsController;
+use App\Http\Controllers\v1\Director\ProfessorsController;
 use App\Http\Controllers\v1\Director\StudentsController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,8 +38,12 @@ Route::middleware(['custom.auth'])->group(function () {
         })->name('director.dashboard');
 
         Route::get('/students', [DirectorController::class, 'students'])->name('director.students');
+        // Route::get('/institutions', [InstitutionsController::class, 'index'])->name('director.institutions');
+        Route::resource('/institutions', InstitutionsController::class);
         Route::get('/students/create', [StudentsController::class, 'create'])->name('student.create');
         Route::post('/students/store', [StudentsController::class, 'store'])->name('student.store');
+        Route::get('/professors', [DirectorController::class, 'professors'])->name('director.professors');
+        Route::get('/professors/create', [ProfessorsController::class, 'create'])->name('professors.create');
     });
     
     Route::prefix('professor')->group(function () {

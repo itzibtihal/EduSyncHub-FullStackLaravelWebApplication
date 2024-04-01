@@ -13,10 +13,15 @@ class DirectorController extends Controller
         return view('Director.dashboard');
     }
 
-    
+
     public function students()
     {
         
         return view('Director.users.students.index');
+    }
+    public function professors()
+    {
+        
+        return view('Director.users.professors.index');
     }
 }
