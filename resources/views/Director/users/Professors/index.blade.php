@@ -7,28 +7,18 @@
             <div class="new-users">
                 <h2>Recent Professors</h2>
                 <div class="user-list">
+                    @foreach($Professors as $professor)
                     <div class="user">
-                        <img src="images/profile-2.jpg">
-                        <h2>Jack</h2>
-                      
+                        <a href="{{ asset('storage/' . $professor->avatar) }}" target="_blank">
+                            <img src="{{ asset('storage/' . $professor->avatar) }}" alt="Profile Image">
+                        </a>
+                        <h2>{{ $professor->firstname }} {{ $professor->lastname }}</h2>
+                        <!-- Add any other user details you want to display -->
                     </div>
-                    <div class="user">
-                        <img src="images/profile-3.jpg">
-                        <h2>Amir</h2>
-                       
-                    </div>
-                    <div class="user">
-                        <img src="images/profile-4.jpg">
-                        <h2>Ember</h2>
-                        
-                    </div>
-                    <div class="user">
-                        <img src="images/profile-4.jpg">
-                        <h2>Ember</h2>
-                        
-                    </div>
+                    @endforeach
                 </div>
             </div>
+            
             <!-- End of 4 Users Section -->
             
             <div class="recent-orders">
@@ -39,12 +29,38 @@
                         <tr>
                             <th>Email</th>
                             <th>Name</th>
-                            <th>phone</th>
+                            <th>Phone</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        @foreach ($users as $professor)
+                        <tr>
+                            <td>{{ $professor->email }}</td>
+                            <td>{{ $professor->firstname }} {{ $professor->lastname }}</td>
+                            <td>{{ $professor->phone }}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <!-- Delete Action -->
+                                    <form action="{{ route('professors.delete', $professor->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this professor?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm mr-2" title="Delete Professor">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                
+                                    <!-- Update Action -->
+                                    <a href="{{ route('professors.edit', $professor->id) }}" class="btn btn-primary btn-sm" title="Edit Professor">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
+                
             </div>
 
           

@@ -44,6 +44,11 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::post('/students/store', [StudentsController::class, 'store'])->name('student.store');
         Route::get('/professors', [DirectorController::class, 'professors'])->name('director.professors');
         Route::get('/professors/create', [ProfessorsController::class, 'create'])->name('professors.create');
+        Route::post('/professors/store', [ProfessorsController::class, 'store'])->name('professors.store');
+        Route::post('/professors/{professor}/update', [ProfessorsController::class, 'update'])->name('professors.update');
+        Route::get('/professors/{professor}/edit', [ProfessorsController::class, 'edit'])->name('professors.edit');
+        Route::post('/professors/{professor}/delete', [ProfessorsController::class, 'destroy'])->name('professors.delete');
+        
     });
     
     Route::prefix('professor')->group(function () {

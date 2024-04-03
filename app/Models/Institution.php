@@ -16,4 +16,9 @@ class Institution extends Model
     {
         return $this->belongsToMany(User::class, 'user_institution', 'institution_id', 'user_id');
     }
+
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class, 'institution_user');
+    // }
 }

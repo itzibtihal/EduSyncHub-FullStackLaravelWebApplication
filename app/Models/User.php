@@ -20,7 +20,9 @@ class User extends Authenticatable
         'dateofbirth',
         'phone',
         'isActive',
+        'status', // Add 'status' to the fillable array
         'email',
+        'cv_file',
         'avatar',
         'monthly_amount',
         'email_verified_at',

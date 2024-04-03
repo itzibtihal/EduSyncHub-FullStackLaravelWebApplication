@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduSyncHub | Add Professor</title>
+    <!-- CSS -->
+<link rel="stylesheet" href="https://unpkg.com/multiple-select-js@1.0.2/dist/multiple-select.css">
+<!-- JS -->
+<script src="https://unpkg.com/multiple-select-js@1.0.2/dist/assets/js/multiple-select.js"></script>
     <style>
         body {
             color: #000;
@@ -93,12 +97,12 @@
         }
 
         .card {
-        padding: 30px 40px;
-        margin-top: 60px;
-        margin-bottom: 60px;
-        border: none !important;
-        box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
-    }
+            padding: 30px 40px;
+            margin-top: 60px;
+            margin-bottom: 60px;
+            border: none !important;
+            box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.2);
+        }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
@@ -115,7 +119,10 @@
                 <div class="card">
 
 
-                    <form class="form-card" action="" method="post" enctype="multipart/form-data">
+                    <form class="form-card" action="{{ route('professors.store') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+
+                        <input type="hidden" name="role_id" value="2">
 
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
@@ -125,46 +132,86 @@
                             </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
                                     class="form-control-label px-3">Last Name<span class="text-danger"> *</span></label>
-                                <input type="number" name="lastname">
+                                <input type="text" name="lastname">
                             </div>
                         </div>
+   
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex"> <label
+                                    class="form-control-label px-3">Adress<span class="text-danger">
+                                        *</span></label>
+                                <input type="text" name="adress">
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> <label
+                                    class="form-control-label px-3">Date Of Birth<span class="text-danger">
+                                        *</span></label>
+                                <input type="Date" name="dateofbirth">
+                            </div>
+                        </div>
+
+
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
                                     class="form-control-label px-3">Email<span class="text-danger"> *</span></label>
-                                <input type="text" name="firstname">
+                                <input type="text" name="email">
                             </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
                                     class="form-control-label px-3">Phone :<span class="text-danger">
                                         *</span></label>
-                                <input type="tel" id="phone" name="phone"
-                                   
-                                    placeholder="+212 XXX XX XX XX">
+                                <input type="tel" id="phone" name="phone" placeholder="+212 XXX XX XX XX">
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label class="form-control-label px-3">Monthly Amount<span class="text-danger">*</span></label>
+                                <input type="number" name="monthly_amount" step="0.01" min="0.01" placeholder="Enter monthly amount" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group col-sm-6 flex-column d-flex"> <label
+                                    class="form-control-label px-3">Password<span class="text-danger"> *</span></label>
+                                <input type="password" name="password">
                             </div>
                         </div>
 
 
                         <div class="row justify-content-between text-left">
-                            <div class="form-group col-sm-6 flex-column d-flex"> <label
-                                    class="form-control-label px-3">Institution<span class="text-danger">
-                                        *</span></label> <input type="text" name="institution" placeholder=""> </div>
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label class="form-control-label px-3">Institutions<span class="text-danger">*</span></label>
+                                <select name="institutions[]" class="form-control" id="multiple-select" multiple>
+                                    @foreach ($user->institutions as $institution)
+                                        <option value="{{ $institution->id }}">{{ $institution->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">Status<span class="text-danger"> *</span></label>
                                 <select name="status" class="form-control">
-                                    <option value="1">Pending</option>
-                                    <option value="2">Approved</option>
-                                    <option value="3">Declined</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="approved">Approved</option>
+                                    <option value="rejected">Rejected</option>
                                 </select>
                             </div>
+
                         </div>
 
-                        
+
 
 
 
                         <div class="row justify-content-between text-left">
-                            <div class="form-group col-12 flex-column d-flex"> <label
-                                    class="form-control-label px-3">Profile picture<span class="text-danger">
-                                        *</span></label> <input type="file" name="image" placeholder=""> </div>
+                            <div class="form-group col-sm-6 flex-column d-flex> 
+                                <label class="form-control-label px-3">Profile picture<span class="text-danger">
+                                        *</span></label>
+                                         <input type="file" name="avatar" placeholder=""> 
+                            </div>
+
+                                        <div class="form-group col-sm-6 flex-column d-flex">
+                                            <label class="form-control-label px-3">CV (Resume)<span class="text-danger">*</span></label>
+                                            <input type="file" name="cv_file" accept=".pdf,.doc,.docx" class="form-control-file" required>
+                                            
+                                        </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="form-group col-sm-6"> <button type="submit" class="btn-block "
@@ -177,6 +224,11 @@
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        let multipleSelect = new MultipleSelect('#multiple-select', {
+            placeholder: 'Select Institutions'
+        })
+        </script>
 </body>
 
 </html>

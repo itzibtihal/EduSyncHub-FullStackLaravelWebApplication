@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\v1\Director;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\UserInstitution;
 use Illuminate\Http\Request;
 
 class DirectorController extends Controller
@@ -19,9 +21,36 @@ class DirectorController extends Controller
         
         return view('Director.users.students.index');
     }
+    
+    
     public function professors()
     {
-        
-        return view('Director.users.professors.index');
+        $userInstitutions = auth()->user()->institutions->pluck('id')->toArray();
+
+    // Get the user IDs with the same institutions as the authenticated user
+    $userIds = UserInstitution::whereIn('institution_id', $userInstitutions)
+        ->pluck('user_id')
+        ->toArray();
+
+    // Get the users with role_id = 2 and matching institution IDs
+    $users = User::whereIn('id', $userIds)
+        ->where('role_id', 2)
+        ->get();
+
+
+        if ($users->isEmpty()) {
+            
+            echo 'No users found';
+            return view('Director.users.professors.index', compact('users'));
+        }
+
+        $Professors = User::whereIn('id', $userIds)
+        ->where('role_id', 2)
+        ->latest()
+        ->take(4)
+        ->get();
+
+        return view('Director.users.professors.index', compact('users', 'Professors'));
     }
+
 }
