@@ -5,7 +5,9 @@ use App\Http\Controllers\v1\Director\DirectorController;
 use App\Http\Controllers\v1\Professor\ProfessorController;
 use App\Http\Controllers\v1\Student\StudentController;
 use App\Helpers\RoleHelper;
+use App\Http\Controllers\v1\Director\ClassesController;
 use App\Http\Controllers\v1\Director\InstitutionsController;
+use App\Http\Controllers\v1\Director\OrganigramController;
 use App\Http\Controllers\v1\Director\ProfessorsController;
 use App\Http\Controllers\v1\Director\StudentsController;
 use Illuminate\Support\Facades\Route;
@@ -48,7 +50,9 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::post('/professors/{professor}/update', [ProfessorsController::class, 'update'])->name('professors.update');
         Route::get('/professors/{professor}/edit', [ProfessorsController::class, 'edit'])->name('professors.edit');
         Route::post('/professors/{professor}/delete', [ProfessorsController::class, 'destroy'])->name('professors.delete');
-        
+        Route::get('/organigram' ,[OrganigramController::class , 'index'])->name('director.organigram');
+        Route::get('/classes' ,[ClassesController::class , 'index'])->name('director.classes');
+        Route::get('/sectionstudents' ,[ClassesController::class , 'students'])->name('director.sectionstudents');
     });
     
     Route::prefix('professor')->group(function () {

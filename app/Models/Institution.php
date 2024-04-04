@@ -21,4 +21,13 @@ class Institution extends Model
     // {
     //     return $this->belongsToMany(User::class, 'institution_user');
     // }
+
+    public function cycles(){
+        return $this->belongsToMany(Cycle::class, "institution_cycle")->whereNull('institution_cycle.deleted_at');;
+    }
+
+
+    public function levelSectionSpecialities(){
+        return $this->hasMany(LevelSectionSpeciality::class);
+    }
 }

@@ -21,4 +21,11 @@ class Speciality extends Model
     {
         return $this->hasMany(LevelSectionSpeciality::class);
     }
+    public function level(){
+        return $this->belongsToMany(Level::class,
+            'level_section_speciality')
+            ->distinct('level_id')
+            ->whereNull('level_section_speciality.deleted_at');
+           
+    }
 }

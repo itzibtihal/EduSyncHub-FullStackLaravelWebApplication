@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -42,9 +44,9 @@
 
     <div class="container">
         <!-- Sidebar Section -->
-                <!-- Sidebar Section -->
-                <aside>
-            
+        <!-- Sidebar Section -->
+        <aside>
+
             <div class="toggle">
                 <div class="logo">
                     <img src="{{ asset('assets/images/edubg.png') }}" id="logo-image">
@@ -58,42 +60,47 @@
             </div>
 
             <div class="sidebar">
-                <a href="{{route('director.dashboard')}}" class="{{ request()->routeIs('director.dashboard') ? 'active' : '' }}">
+                <a href="{{ route('director.dashboard') }}"
+                    class="{{ request()->routeIs('director.dashboard') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         dashboard
                     </span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="{{route('institutions.index')}}" class="{{ request()->routeIs('institutions.index') ? 'active' : '' }}">
+                <a href="{{ route('institutions.index') }}"
+                    class="{{ request()->routeIs('institutions.index') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         domain_add
                     </span>
                     <h3> institutions</h3>
                 </a>
 
-                <a href="{{route('director.students')}}" class="{{ request()->routeIs('director.students') ? 'active' : '' }}">
+                <a href="{{ route('director.students') }}"
+                    class="{{ request()->routeIs('director.students') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
                     <h3>Students</h3>
                 </a>
 
-                <a href="{{route('director.professors')}}" class="{{ request()->routeIs('director.professors') ? 'active' : '' }}">
+                <a href="{{ route('director.professors') }}"
+                    class="{{ request()->routeIs('director.professors') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         group
                     </span>
                     <h3>Professors</h3>
                 </a>
 
-                <a href="">
+                <a href="{{ route('director.organigram') }}"
+                    class="{{ request()->routeIs('director.organigram') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         account_tree
                     </span>
                     <h3>Organizational chart</h3>
-                   
+
                 </a>
 
-                <a href="" class="{{ request()->routeIs('organizer.events.pending') ? 'active' : '' }}">
+                <a href="{{ route('director.classes') }}" class="{{ request()->routeIs('director.classes') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         school
                     </span>
@@ -108,15 +115,15 @@
                     <h3>Exams</h3>
                 </a>
 
-                
 
-                
 
-                
-                
-                
-                
-               
+
+
+
+
+
+
+
                 <a href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <span class="material-icons-sharp">
                         logout
