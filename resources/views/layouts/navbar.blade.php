@@ -121,8 +121,14 @@
                     </span>
                     <h3>Holidays</h3>
                 </a>
+               
 
-
+                <a href="{{ route('director.reminders') }}" class="{{ request()->routeIs('director.reminders') ? 'active' : '' }}">
+                    <span class="material-icons-sharp">
+                        notifications_active
+                    </span>
+                    <h3> Reminders </h3>
+                </a>
 
 
 

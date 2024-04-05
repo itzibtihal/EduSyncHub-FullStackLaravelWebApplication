@@ -63,4 +63,9 @@ class User extends Authenticatable
     public function sections(){
         return $this->belongsToMany(Section::class);
     }
+
+    public function reminders()
+    {
+        return $this->hasMany(Reminder::class, 'created_by');
+    }
 }

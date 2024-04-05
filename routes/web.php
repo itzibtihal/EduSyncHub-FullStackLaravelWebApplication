@@ -61,6 +61,8 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::get('/holidays' ,[HolidaysController::class , 'index'])->name('director.holidays');
         Route::post('/holidays/store', [HolidaysController::class, 'store'])->name('director.holidays.store');
         Route::delete('/holidays/{holiday}/delete', [HolidaysController::class, 'destroy'])->name('director.holidays.destroy');
+        Route::get('/reminders', \App\Http\Controllers\v1\Director\RemindersController::class)->name('director.reminders'); 
+        Route::post('/reminders/store', [\App\Http\Controllers\v1\Director\RemindersController::class, 'store'])->name('director.reminders.store');
     });
     
     Route::prefix('professor')->group(function () {
