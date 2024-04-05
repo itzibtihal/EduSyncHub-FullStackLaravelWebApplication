@@ -63,5 +63,11 @@ class ProfessorsController extends Controller
         return redirect()->route('director.professors')->with('success', 'Professor created successfully.');
     }
 
-    
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return redirect()->route('director.professors')->with('success', 'Professor deleted successfully.');
+    }
+
 }
+ 

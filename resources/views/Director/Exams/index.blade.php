@@ -5,32 +5,7 @@
 <h1>Dashboard</h1>
            
 
-       <!-- New Users Section -->
-       <div class="new-users">
-        <h2>New Students</h2>
-        <div class="user-list">
-            <div class="user">
-                <img src="images/profile-2.jpg">
-                <h2>Jack</h2>
-                <p>54 Min Ago</p>
-            </div>
-            <div class="user">
-                <img src="images/profile-3.jpg">
-                <h2>Amir</h2>
-                <p>3 Hours Ago</p>
-            </div>
-            <div class="user">
-                <img src="images/profile-4.jpg">
-                <h2>Ember</h2>
-                <p>6 Hours Ago</p>
-            </div>
-            <div class="user">
-                <img src="images/plus.png">
-                <h2>More</h2>
-                <a href="newStudents.html"><p>New Student</p></a>
-            </div>
-        </div>
-    </div>
+
 
         <div class="recent-orders">
                 <h2>Recent exams</h2>

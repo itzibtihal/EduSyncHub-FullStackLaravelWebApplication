@@ -115,6 +115,13 @@
                     <h3>Exams</h3>
                 </a>
 
+                <a href="{{ route('director.holidays') }}" class="{{ request()->routeIs('director.holidays') ? 'active' : '' }}">
+                    <span class="material-icons-sharp">
+                        travel_explore
+                    </span>
+                    <h3>Holidays</h3>
+                </a>
+
 
 
 

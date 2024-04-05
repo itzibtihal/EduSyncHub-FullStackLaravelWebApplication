@@ -6,6 +6,9 @@ use App\Http\Controllers\v1\Professor\ProfessorController;
 use App\Http\Controllers\v1\Student\StudentController;
 use App\Helpers\RoleHelper;
 use App\Http\Controllers\v1\Director\ClassesController;
+use App\Http\Controllers\v1\Director\EventsController;
+use App\Http\Controllers\v1\Director\ExamsController;
+use App\Http\Controllers\v1\Director\HolidaysController;
 use App\Http\Controllers\v1\Director\InstitutionsController;
 use App\Http\Controllers\v1\Director\OrganigramController;
 use App\Http\Controllers\v1\Director\ProfessorsController;
@@ -53,6 +56,11 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::get('/organigram' ,[OrganigramController::class , 'index'])->name('director.organigram');
         Route::get('/classes' ,[ClassesController::class , 'index'])->name('director.classes');
         Route::get('/sectionstudents' ,[ClassesController::class , 'students'])->name('director.sectionstudents');
+        Route::get('/exams' ,[ExamsController::class , 'index'])->name('director.exams');
+        Route::get('/events' ,[EventsController::class , 'index'])->name('director.events');
+        Route::get('/holidays' ,[HolidaysController::class , 'index'])->name('director.holidays');
+        Route::post('/holidays/store', [HolidaysController::class, 'store'])->name('director.holidays.store');
+        Route::delete('/holidays/{holiday}/delete', [HolidaysController::class, 'destroy'])->name('director.holidays.destroy');
     });
     
     Route::prefix('professor')->group(function () {
