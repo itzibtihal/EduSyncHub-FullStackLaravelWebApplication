@@ -60,5 +60,17 @@ class Section extends Model
             ->whereNull('level_section_speciality.deleted_at');
     }
 
+    public function getCompleteNameAttribute(){
+        if( $this->level && $this->level->cycle){
+            $returnname = $this->name.' ('.$this->level->name.' '.$this->level->cycle->name.')';
+           if($this->speciality){
+               if(strtolower($this->speciality->name) != 'default'){
+                   $returnname = $returnname.' - '.$this->speciality->name;
+               }
+           }
+            return $returnname;
+        }
+        return $this->name ;
+    }
 
 }

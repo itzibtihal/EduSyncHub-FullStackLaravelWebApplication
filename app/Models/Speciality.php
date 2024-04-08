@@ -28,4 +28,11 @@ class Speciality extends Model
             ->whereNull('level_section_speciality.deleted_at');
            
     }
+
+    public function sections(){
+        return $this->belongsToMany(Section::class,
+            LevelSectionSpeciality::class)->withPivot('level_id')
+            ->distinct('subject_id')
+            ->whereNull('level_section_speciality.deleted_at');
+    }
 }

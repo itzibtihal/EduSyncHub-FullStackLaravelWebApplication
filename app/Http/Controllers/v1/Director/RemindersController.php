@@ -37,5 +37,5 @@ class RemindersController extends Controller
  
         return redirect()->route('director.reminders')->with('success', 'Reminder created successfully.');
     }
-    
+
 }

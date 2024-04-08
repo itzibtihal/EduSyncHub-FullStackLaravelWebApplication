@@ -56,7 +56,14 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::get('/organigram' ,[OrganigramController::class , 'index'])->name('director.organigram');
         Route::get('/classes' ,[ClassesController::class , 'index'])->name('director.classes');
         Route::get('/sectionstudents' ,[ClassesController::class , 'students'])->name('director.sectionstudents');
+
         Route::get('/exams' ,[ExamsController::class , 'index'])->name('director.exams');
+        Route::get('/exams/create', [ExamsController::class, 'create'])->name('director.exams.create');
+        Route::post('/exams/store', [ExamsController::class, 'store'])->name('director.exams.store');
+        Route::get('/exams/{exam}/edit', [ExamsController::class, 'edit'])->name('director.exams.edit');
+        Route::post('/exams/{exam}/update', [ExamsController::class, 'update'])->name('director.exams.update');
+        Route::delete('/exams/{exam}/delete', [ExamsController::class, 'destroy'])->name('director.exams.delete');
+
         Route::get('/events' ,[EventsController::class , 'index'])->name('director.events');
         Route::get('/holidays' ,[HolidaysController::class , 'index'])->name('director.holidays');
         Route::post('/holidays/store', [HolidaysController::class, 'store'])->name('director.holidays.store');

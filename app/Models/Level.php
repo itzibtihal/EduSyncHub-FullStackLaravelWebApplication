@@ -29,4 +29,13 @@ class Level extends Model
             ->distinct('speciality_id')
             ->whereNull('level_section_speciality.deleted_at');
     }
+
+    public function getCompleteNameAttribute(){
+        return $this->name.' ('.$this->cycle->name.')';
+    }
+
+    public function getSpecialitiesCountAttribute(){
+        return $this->specialities;
+    }
+    
 }

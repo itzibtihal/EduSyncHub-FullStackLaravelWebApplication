@@ -27,12 +27,12 @@ class DirectorController extends Controller
     {
         $userInstitutions = auth()->user()->institutions->pluck('id')->toArray();
 
-    // Get the user IDs with the same institutions as the authenticated user
+    
     $userIds = UserInstitution::whereIn('institution_id', $userInstitutions)
         ->pluck('user_id')
         ->toArray();
 
-    // Get the users with role_id = 2 and matching institution IDs
+    
     $users = User::whereIn('id', $userIds)
         ->where('role_id', 2)
         ->get();

@@ -2,26 +2,28 @@
 
 
 @section('main-content')
-<h1>Dashboard</h1>
+<h1>Exams</h1>
            
 
 
 
         <div class="recent-orders">
                 <h2>Recent exams</h2>
+                <a href="{{route('director.exams.create')}}">Create an Exam</a>
                 <table>
                     <thead>
                         <tr>
                             <th>title</th>
                             <th>Date</th>
                             <th>Duration</th>
+                            <th>Institution</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
-                <a href="#">Show All</a>
+                
             </div>
 
 @endsection

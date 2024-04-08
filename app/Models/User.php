@@ -68,4 +68,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reminder::class, 'created_by');
     }
+
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class, 'exam_user')->withPivot('result', 'base_note', 'comment', 'is_passed')->withTimestamps();
+    }
 }

@@ -108,7 +108,7 @@
                 </a>
 
 
-                <a href="" class="{{ request()->routeIs('') ? 'active' : '' }}">
+                <a href="{{ route('director.exams') }}" class="{{ request()->routeIs('director.exams') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
