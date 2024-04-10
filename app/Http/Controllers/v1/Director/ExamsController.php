@@ -17,7 +17,8 @@ class ExamsController extends Controller
 {
     public function index()
     {
-        return view('director.exams.index');
+        $exams = Exam::all();
+        return view('director.exams.index', compact('exams'));
     }
 
     public function create()
@@ -45,36 +46,63 @@ class ExamsController extends Controller
 
     public function store(Request $request)
     {
-        // Get the request data
-    $data = $request->all();
-    
-    // Assign the authenticated user's ID to the created_by field
-    $data['created_by'] = auth()->id();
+        $data = $request->all();
+        $data['created_by'] = auth()->id();
+        $exam = Exam::create($data);
+        // dump($exam);
 
-    // Create the exam using the request data
-    $exam = Exam::create($data);
-        dump($exam);
-        // Check if the exam was created successfully
         if ($exam) {
             return redirect()->route('director.exams')->with('success', 'Exam created successfully.');
         } else {
             return back()->with('error', 'Failed to create exam.');
         }
     }
-    
+
 
     public function edit($id)
     {
-        return view('director.exams.edit');
+        $exam = Exam::findOrFail($id);
+        $cycles = Cycle::all();
+        $levels = Level::all();
+        $specialities = Speciality::all();
+        $sections = Section::all();
+        $subjects = Subject::all();
+        $userInstitutions = auth()->user()->institutions->pluck('id')->toArray();
+    
+        $userIds = UserInstitution::whereIn('institution_id', $userInstitutions)
+            ->pluck('user_id')
+            ->toArray();
+    
+        $professors = User::whereIn('id', $userIds)
+            ->where('role_id', 2)
+            ->get();
+    
+        return view('director.exams.edit', compact('exam', 'cycles', 'levels', 'specialities', 'sections', 'subjects', 'professors'));
     }
 
     public function update(Request $request, $id)
     {
-        return redirect()->route('director.exams')->with('success', 'Exam updated successfully.');
+        $exam = Exam::findOrFail($id);
+        $data = $request->all();
+        $data['created_by'] = auth()->id();
+        
+        $exam->fill($data);
+
+        if ($exam->save()) {
+            return redirect()->route('director.exams')->with('success', 'Exam updated successfully.');
+        } else {
+            return back()->with('error', 'Failed to update exam.');
+        }
     }
 
     public function destroy($id)
     {
-        return redirect()->route('director.exams')->with('success', 'Exam deleted successfully.');
+        $exam = Exam::findOrFail($id);
+
+        if ($exam->delete()) {
+            return redirect()->route('director.exams')->with('success', 'Exam deleted successfully.');
+        } else {
+            return back()->with('error', 'Failed to delete exam.');
+        }
     }
 }

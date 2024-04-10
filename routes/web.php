@@ -74,8 +74,8 @@ Route::middleware(['custom.auth'])->group(function () {
     
     Route::prefix('professor')->group(function () {
         Route::get('/dashboard', function () {
-            return RoleHelper::checkRoleAndReturnView(2, 'professor.dashboard');
-        })->name('professor.dashboard');
+            return RoleHelper::checkRoleAndReturnView(2, 'teacher.dashboard');
+        })->name('teacher.dashboard');
     });
     
     Route::prefix('student')->group(function () {

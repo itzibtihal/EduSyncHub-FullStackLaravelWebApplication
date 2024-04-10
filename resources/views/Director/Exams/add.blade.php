@@ -119,7 +119,7 @@
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">Date<span class="text-danger">*</span></label>
-                                <input type="date" name="date" required>
+                                <input type="datetime-local" name="date" required>
                             </div>
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">Duration (in minutes):<span class="text-danger">*</span></label>

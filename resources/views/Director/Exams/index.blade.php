@@ -16,12 +16,34 @@
                             <th>title</th>
                             <th>Date</th>
                             <th>Duration</th>
-                            <th>Institution</th>
-                            <th>Status</th>
+                            <th>Subject</th>
+                            <th>professor</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        @foreach($exams as $exam)
+                        <tr>
+                            <td>{{ $exam->title }}</td>
+                            <td>{{ $exam->date }}</td>
+                            <td>{{ $exam->duration }}</td>
+                            <td>{{ $exam->subject->name }}</td>
+                            <td>DR.{{ $exam->professor->lastname }}</td>
+                            <td>
+                                <a href="{{ route('director.exams.edit', $exam->id) }}">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                                <a href="{{ route('director.exams.delete', $exam->id) }}" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $exam->id }}').submit();">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                                <form id="delete-form-{{ $exam->id }}" action="{{ route('director.exams.delete', $exam->id) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
                 
             </div>
