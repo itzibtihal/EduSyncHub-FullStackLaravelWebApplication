@@ -2,25 +2,71 @@
 
 
 @section('main-content')
-<h1>Dashboard</h1>
-       
-      
+<h1>Exams</h1>
+           
+
+
 
         <div class="recent-orders">
                 <h2>Recent exams</h2>
+                <a href="{{route('teacher.exams.create')}}">Create an Exam</a>
                 <table>
                     <thead>
                         <tr>
                             <th>title</th>
                             <th>Date</th>
                             <th>Duration</th>
-                            <th>Status</th>
+                            <th>Subject</th>
+                            <th>Base Note</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        @foreach( $exams as $exam )
+                        <tr>
+                            <td>{{ $exam->title }}</td>
+                            <td>{{ $exam->date }}</td>
+                            <td>{{ $exam->duration }}</td>
+                            <td>{{ $exam->subject->name }}</td>
+                            <td>note/{{ $exam->base_note }}</td>
+                            <td>
+                                <a href="{{ route('teacher.exams.edit', $exam->id) }}">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                                <a href="#" onclick="confirmDelete('{{ route('teacher.exams.delete', $exam->id) }}', 'delete-form-{{ $exam->id }}')">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                                <form id="delete-form-{{ $exam->id }}" action="{{ route('teacher.exams.delete', $exam->id) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
-                <a href="#">Show All</a>
+
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                <script>
+                    function confirmDelete(deleteUrl, formId) {
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: 'You will not be able to recover this exam!',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                document.getElementById(formId).action = deleteUrl;
+                                document.getElementById(formId).submit();
+                            }
+                        });
+                    }
+                </script>
+
+                
             </div>
 
 @endsection

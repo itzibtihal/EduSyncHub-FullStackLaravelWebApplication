@@ -13,6 +13,8 @@ use App\Http\Controllers\v1\Director\InstitutionsController;
 use App\Http\Controllers\v1\Director\OrganigramController;
 use App\Http\Controllers\v1\Director\ProfessorsController;
 use App\Http\Controllers\v1\Director\StudentsController;
+use App\Http\Controllers\v1\Profesor\PExamsController;
+use App\Http\Controllers\v1\Profesor\PHolidaysController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,38 +55,46 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::post('/professors/{professor}/update', [ProfessorsController::class, 'update'])->name('professors.update');
         Route::get('/professors/{professor}/edit', [ProfessorsController::class, 'edit'])->name('professors.edit');
         Route::post('/professors/{professor}/delete', [ProfessorsController::class, 'destroy'])->name('professors.delete');
-        Route::get('/organigram' ,[OrganigramController::class , 'index'])->name('director.organigram');
-        Route::get('/classes' ,[ClassesController::class , 'index'])->name('director.classes');
-        Route::get('/sectionstudents' ,[ClassesController::class , 'students'])->name('director.sectionstudents');
+        Route::get('/organigram', [OrganigramController::class, 'index'])->name('director.organigram');
+        Route::get('/classes', [ClassesController::class, 'index'])->name('director.classes');
+        Route::get('/sectionstudents', [ClassesController::class, 'students'])->name('director.sectionstudents');
 
-        Route::get('/exams' ,[ExamsController::class , 'index'])->name('director.exams');
+        Route::get('/exams', [ExamsController::class, 'index'])->name('director.exams');
         Route::get('/exams/create', [ExamsController::class, 'create'])->name('director.exams.create');
         Route::post('/exams/store', [ExamsController::class, 'store'])->name('director.exams.store');
         Route::get('/exams/{exam}/edit', [ExamsController::class, 'edit'])->name('director.exams.edit');
         Route::post('/exams/{exam}/update', [ExamsController::class, 'update'])->name('director.exams.update');
         Route::delete('/exams/{exam}/delete', [ExamsController::class, 'destroy'])->name('director.exams.delete');
 
-        Route::get('/events' ,[EventsController::class , 'index'])->name('director.events');
-        Route::get('/holidays' ,[HolidaysController::class , 'index'])->name('director.holidays');
+        Route::get('/events', [EventsController::class, 'index'])->name('director.events');
+        Route::get('/holidays', [HolidaysController::class, 'index'])->name('director.holidays');
         Route::post('/holidays/store', [HolidaysController::class, 'store'])->name('director.holidays.store');
         Route::delete('/holidays/{holiday}/delete', [HolidaysController::class, 'destroy'])->name('director.holidays.destroy');
-        Route::get('/reminders', \App\Http\Controllers\v1\Director\RemindersController::class)->name('director.reminders'); 
+        Route::get('/reminders', \App\Http\Controllers\v1\Director\RemindersController::class)->name('director.reminders');
         Route::post('/reminders/store', [\App\Http\Controllers\v1\Director\RemindersController::class, 'store'])->name('director.reminders.store');
     });
-    
+
     Route::prefix('professor')->group(function () {
         Route::get('/dashboard', function () {
             return RoleHelper::checkRoleAndReturnView(2, 'teacher.dashboard');
         })->name('teacher.dashboard');
+
+        Route::get('/holidays', [PHolidaysController::class, 'index'])
+            ->name('professor.holidays.index');
+
+        Route::get('/exams', [PExamsController::class, 'index'])
+            ->name('professor.exams.index');
+        Route::get('/exams/create', [PExamsController::class, 'create'])->name('teacher.exams.create');
+        Route::post('/exams/store', [PExamsController::class, 'store'])->name('teacher.exams.store');
+        Route::get('/exams/{exam}/edit', [PExamsController::class, 'edit'])->name('teacher.exams.edit');
+        Route::post('/exams/{exam}/update', [PExamsController::class, 'update'])->name('teacher.exams.update');
+        Route::delete('/exams/{exam}/delete', [PExamsController::class, 'destroy'])->name('teacher.exams.delete');
+
     });
-    
+
     Route::prefix('student')->group(function () {
         Route::get('/dashboard', function () {
             return RoleHelper::checkRoleAndReturnView(3, 'student.dashboard');
         })->name('student.dashboard');
-    }); 
+    });
 });
-
-
-
-
