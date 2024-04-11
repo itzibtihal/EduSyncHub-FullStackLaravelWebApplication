@@ -71,8 +71,8 @@
 
                
 
-                <a href="{{ route('director.professors') }}"
-                    class="{{ request()->routeIs('director.professors') ? 'active' : '' }}">
+                <a href="{{ route('professor.staffs.index') }}"
+                    class="{{ request()->routeIs('professor.staffs.index') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         group
                     </span>

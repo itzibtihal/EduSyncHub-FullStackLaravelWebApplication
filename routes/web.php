@@ -15,6 +15,7 @@ use App\Http\Controllers\v1\Director\ProfessorsController;
 use App\Http\Controllers\v1\Director\StudentsController;
 use App\Http\Controllers\v1\Profesor\PExamsController;
 use App\Http\Controllers\v1\Profesor\PHolidaysController;
+use App\Http\Controllers\v1\Profesor\PStaffController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -89,7 +90,11 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::get('/exams/{exam}/edit', [PExamsController::class, 'edit'])->name('teacher.exams.edit');
         Route::post('/exams/{exam}/update', [PExamsController::class, 'update'])->name('teacher.exams.update');
         Route::delete('/exams/{exam}/delete', [PExamsController::class, 'destroy'])->name('teacher.exams.delete');
+        
+        Route::get('/staff', [PStaffController::class, 'index'])
+            ->name('professor.staffs.index');
 
+            
     });
 
     Route::prefix('student')->group(function () {
