@@ -60,8 +60,8 @@
             </div>
 
             <div class="sidebar">
-                <a href="{{ route('director.dashboard') }}"
-                    class="{{ request()->routeIs('director.dashboard') ? 'active' : '' }}">
+                <a href="{{ route('teacher.dashboard') }}"
+                    class="{{ request()->routeIs('teacher.dashboard') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         dashboard
                     </span>
@@ -104,7 +104,7 @@
                 </a>
                
 
-                <a href="{{ route('director.reminders') }}" class="{{ request()->routeIs('director.reminders') ? 'active' : '' }}">
+                <a href="{{ route('teacher.reminders') }}" class="{{ request()->routeIs('director.reminders') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         notifications_active
                     </span>

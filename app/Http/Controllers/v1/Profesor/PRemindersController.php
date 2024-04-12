@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\v1\Director;
+namespace App\Http\Controllers\v1\Profesor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reminder;
 use Illuminate\Http\Request;
 
-class RemindersController extends Controller
+class PRemindersController extends Controller
 {
-
     public function __invoke()
     {
        
@@ -24,9 +23,10 @@ class RemindersController extends Controller
             ];
             // dd($events);
         }
- 
-        return view('Director.reminders.index', compact('events'));
+        return view('teacher.reminders.index', compact('events'));
+
     }
+
 
     public function store(Request $request)
     {
@@ -35,9 +35,6 @@ class RemindersController extends Controller
         $reminder->created_by = auth()->id();
         $reminder->save();
  
-        return redirect()->route('director.reminders')->with('success', 'Reminder created successfully.');
+        return redirect()->route('teacher.reminders')->with('success', 'Reminder created successfully.');
     }
-
- 
-
 }

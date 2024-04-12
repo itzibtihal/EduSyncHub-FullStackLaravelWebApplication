@@ -94,7 +94,11 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::get('/staff', [PStaffController::class, 'index'])
             ->name('professor.staffs.index');
 
-            
+        Route::get('/reminders', \App\Http\Controllers\v1\Profesor\PRemindersController::class)->name('teacher.reminders');
+        Route::post('/reminders/store', [\App\Http\Controllers\v1\Profesor\PRemindersController::class, 'storeProf'])->name('teacher.reminders.store');
+    
+
+
     });
 
     Route::prefix('student')->group(function () {
