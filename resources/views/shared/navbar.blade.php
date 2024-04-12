@@ -108,10 +108,17 @@
                     <span class="material-icons-sharp">
                         notifications_active
                     </span>
-                    <h3> Reminders </h3>
+                    <h3> Agenda </h3>
+                    <span class="message-count">{{ $reminderCount }}</span>
                 </a>
+                
 
-
+                <a href="{{ route('teacher.reminders') }}" class="{{ request()->routeIs('director.reminders') ? 'active' : '' }}">
+                    <span class="material-icons-sharp">
+                        report_gmailerrorred
+                    </span>
+                    <h3> Daily reporting </h3>
+                </a>
 
 
 
