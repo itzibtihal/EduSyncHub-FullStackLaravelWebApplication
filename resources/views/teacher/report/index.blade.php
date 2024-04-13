@@ -186,7 +186,7 @@
     </style>
     <div class="status-container">
         <i class="fas fa-bell"></i>
-        <span class="status-text">Not submitted for validation</span>
+        <span class="status-text">Remember, timely updates lead to accurate records. Keep your time sheet updated!</span>
         <br>
        
     </div>
@@ -194,7 +194,7 @@
 
     <br><br>
     @if ($timesheet)
-        <a >
+        <a  href="{{ $filePath }}" download="mytimesheet_2024.xlsx">
             <em>Click to download your timesheet file</em>
         </a>
     @elseif ($yearlyTimesheet)
@@ -207,7 +207,7 @@
     <br><br>
 
     <script>
-        // Function to download a file using JavaScript
+        
         function downloadFile(filePath) {
           var downloadLink = document.getElementById('downloadLink');
           downloadLink.href = filePath;
@@ -215,7 +215,7 @@
           downloadLink.click();
         }
       
-        var filePath = '{{ $filePath }}'; // Use the file path passed from the controller
+        var filePath = '{{ $filePath }}'; 
         downloadFile(filePath);
     </script>
 
@@ -327,9 +327,8 @@
         const form = document.getElementById('timesheetForm');
 
         submitFormButton.addEventListener('click', function (event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault(); 
 
-            // Show SweetAlert confirmation dialog
             Swal.fire({
                 title: 'Confirmation',
                 text: 'Are you sure you want to submit the form?',
@@ -339,7 +338,7 @@
                 cancelButtonText: 'Cancel'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // If confirmed, submit the form
+                    
                     form.submit();
                 }
             });
