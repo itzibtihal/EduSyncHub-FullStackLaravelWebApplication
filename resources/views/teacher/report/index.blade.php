@@ -186,14 +186,67 @@
     </style>
     <div class="status-container">
         <i class="fas fa-bell"></i>
-        <span class="status-text">Non soumis pour validation</span>
+        <span class="status-text">Not submitted for validation</span>
         <br>
-        <button class="submit-button">
+        <button id="submitFormButton" class="submit-button">
             {{-- <i class="fas fa-check"></i>  --}}
-            Soumettre pour validation</button>
+            Submit for validation</button>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const submitFormButton = document.getElementById('submitFormButton');
+            const form = document.querySelector('form');
+    
+            submitFormButton.addEventListener('click', function (event) {
+                event.preventDefault(); 
+                Swal.fire({
+                    title: 'Confirmation',
+                    text: 'Are you sure you want to Validate your timesheet ?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, submit it!',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // If confirmed, submit the form
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
+    
 
     <br><br>
+    @if ($timesheet)
+        <a >
+            <em>Click to download your timesheet file</em>
+        </a>
+    @elseif ($yearlyTimesheet)
+        <a  href="{{ $filePath }}" download="timesheet_2024.xlsx" >
+            <em>Click to download the yearly timesheet file</em>
+        </a>
+    @else
+        <em>No timesheet files available</em>
+    @endif
+    <br><br>
+
+    <script>
+        // Function to download a file using JavaScript
+        function downloadFile(filePath) {
+          var downloadLink = document.getElementById('downloadLink');
+          downloadLink.href = filePath;
+          downloadLink.setAttribute('download', '');
+          downloadLink.click();
+        }
+      
+        var filePath = '{{ $filePath }}'; // Use the file path passed from the controller
+        downloadFile(filePath);
+    </script>
+
+
     <div class="wraper-div">
 
         <div class="wrapper">

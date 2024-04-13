@@ -6,6 +6,7 @@ use App\Http\Controllers\v1\Professor\ProfessorController;
 use App\Http\Controllers\v1\Student\StudentController;
 use App\Helpers\RoleHelper;
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\TimesheetController;
 use App\Http\Controllers\v1\Director\ClassesController;
 use App\Http\Controllers\v1\Director\EventsController;
 use App\Http\Controllers\v1\Director\ExamsController;
@@ -102,8 +103,13 @@ Route::middleware(['custom.auth'])->group(function () {
             ->name('professor.reports.index');
        
         Route::post('/upload', [FileUploadController::class, 'upload']);
-
-
+// Route for downloading user-specific timesheets
+    Route::get('/download/user-timesheet', [TimesheetController::class, 'downloadUserTimesheet'])->name('download.user-timesheet');
+    
+    // Route for downloading yearly timesheets
+    Route::get('/download/yearly-timesheet/{year}',[TimesheetController::class, 'downloadYearlyTimesheet'] )->name('download.yearly-timesheet');
+    
+        // Route::get('/download-Timesheet', [TimesheetController::class, 'download'])->name('download.excel');
     });
 
     Route::prefix('student')->group(function () {
