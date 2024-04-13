@@ -113,7 +113,7 @@
                 </a>
                 
 
-                <a href="{{ route('teacher.reminders') }}" class="{{ request()->routeIs('director.reminders') ? 'active' : '' }}">
+                <a href="{{ route('professor.reports.index') }}" class="{{ request()->routeIs('professor.reports.index') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         report_gmailerrorred
                     </span>

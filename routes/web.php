@@ -5,6 +5,7 @@ use App\Http\Controllers\v1\Director\DirectorController;
 use App\Http\Controllers\v1\Professor\ProfessorController;
 use App\Http\Controllers\v1\Student\StudentController;
 use App\Helpers\RoleHelper;
+use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\v1\Director\ClassesController;
 use App\Http\Controllers\v1\Director\EventsController;
 use App\Http\Controllers\v1\Director\ExamsController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\v1\Director\ProfessorsController;
 use App\Http\Controllers\v1\Director\StudentsController;
 use App\Http\Controllers\v1\Profesor\PExamsController;
 use App\Http\Controllers\v1\Profesor\PHolidaysController;
+use App\Http\Controllers\v1\Profesor\PReportsController;
 use App\Http\Controllers\v1\Profesor\PStaffController;
 use Illuminate\Support\Facades\Route;
 
@@ -96,7 +98,10 @@ Route::middleware(['custom.auth'])->group(function () {
 
         Route::get('/reminders', \App\Http\Controllers\v1\Profesor\PRemindersController::class)->name('teacher.reminders');
         Route::post('/reminders/store', [\App\Http\Controllers\v1\Profesor\PRemindersController::class, 'storeProf'])->name('teacher.reminders.store');
-    
+        Route::get('/reports', [PReportsController::class, 'index'])
+            ->name('professor.reports.index');
+       
+        Route::post('/upload', [FileUploadController::class, 'upload']);
 
 
     });
