@@ -41,4 +41,33 @@ class PReportsController extends Controller
 
         return view('teacher.report.index',compact('filePath','timesheet','yearlyTimesheet'));
     }
+
+
+    public function store(Request $request)
+    {
+        
+        $request->validate([
+            'file' => 'required|mimes:xlsx|max:10240', // Max 10MB
+        ]);
+
+       
+        $userId = Auth::id();
+
+        
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('timesheets', $fileName); 
+        } else {
+            return back()->with('error', 'File upload failed.'); 
+        }
+
+        // Create a new Timesheet record
+        $timesheet = new Timesheet();
+        $timesheet->user_id = $userId;
+        $timesheet->file = $filePath;
+        $timesheet->save();
+
+        return redirect()->route('professor.reports.index')->with('success', 'Timesheet uploaded successfully.');
+    }
 }

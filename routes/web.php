@@ -93,7 +93,7 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::get('/exams/{exam}/edit', [PExamsController::class, 'edit'])->name('teacher.exams.edit');
         Route::post('/exams/{exam}/update', [PExamsController::class, 'update'])->name('teacher.exams.update');
         Route::delete('/exams/{exam}/delete', [PExamsController::class, 'destroy'])->name('teacher.exams.delete');
-        
+
         Route::get('/staff', [PStaffController::class, 'index'])
             ->name('professor.staffs.index');
 
@@ -101,14 +101,13 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::post('/reminders/store', [\App\Http\Controllers\v1\Profesor\PRemindersController::class, 'storeProf'])->name('teacher.reminders.store');
         Route::get('/reports', [PReportsController::class, 'index'])
             ->name('professor.reports.index');
-       
+
         Route::post('/upload', [FileUploadController::class, 'upload']);
-// Route for downloading user-specific timesheets
-    Route::get('/download/user-timesheet', [TimesheetController::class, 'downloadUserTimesheet'])->name('download.user-timesheet');
-    
-    // Route for downloading yearly timesheets
-    Route::get('/download/yearly-timesheet/{year}',[TimesheetController::class, 'downloadYearlyTimesheet'] )->name('download.yearly-timesheet');
-    
+
+        // Update the route to accept POST requests for form submission
+        Route::post('/timesheets/store', [PReportsController::class, 'store'])
+            ->name('timesheets.store');
+
         // Route::get('/download-Timesheet', [TimesheetController::class, 'download'])->name('download.excel');
     });
 

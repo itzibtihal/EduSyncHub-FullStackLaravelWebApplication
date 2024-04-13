@@ -188,36 +188,9 @@
         <i class="fas fa-bell"></i>
         <span class="status-text">Not submitted for validation</span>
         <br>
-        <button id="submitFormButton" class="submit-button">
-            {{-- <i class="fas fa-check"></i>  --}}
-            Submit for validation</button>
+       
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const submitFormButton = document.getElementById('submitFormButton');
-            const form = document.querySelector('form');
-    
-            submitFormButton.addEventListener('click', function (event) {
-                event.preventDefault(); 
-                Swal.fire({
-                    title: 'Confirmation',
-                    text: 'Are you sure you want to Validate your timesheet ?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, submit it!',
-                    cancelButtonText: 'Cancel'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // If confirmed, submit the form
-                        form.submit();
-                    }
-                });
-            });
-        });
-    </script>
-    
 
     <br><br>
     @if ($timesheet)
@@ -251,11 +224,14 @@
 
         <div class="wrapper">
             <header>Timesheet Uploader </header>
-            <form action="">
+            <form id="timesheetForm" action="{{ route('timesheets.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <input type="file" class="file-input" name="file" style="opacity: 0">
                 <i class="fas fa-cloud-upload-alt"></i>
                 <p>Browse file to Upload</p>
+                <button id="submitFormButton" type="submit" class="submit-button">Submit for validation</button>
             </form>
+            
             <section class="progress-area"></section>
             <section class="uploaded-area">
 
@@ -344,6 +320,34 @@
         //     fileInput.click();
         // });
     </script>
+   
+   <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const submitFormButton = document.getElementById('submitFormButton');
+        const form = document.getElementById('timesheetForm');
+
+        submitFormButton.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Show SweetAlert confirmation dialog
+            Swal.fire({
+                title: 'Confirmation',
+                text: 'Are you sure you want to submit the form?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, submit it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If confirmed, submit the form
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+
+
 @endsection
 
 @section('right-section')
