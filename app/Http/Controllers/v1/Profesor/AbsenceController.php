@@ -7,16 +7,23 @@ use App\Models\Absence;
 use App\Models\Subject;
 use App\Models\Section;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AbsenceController extends Controller
 {
     public function index()
-    {
+{
+    $today = Carbon::today()->toDateString();
 
-        return view('teacher.absence.index');
-    }
+    $absences = Absence::whereDate('starts_at', $today)
+                        ->orWhereDate('created_at', $today)
+                        ->get(); 
+
+
+    return view('teacher.absence.index', compact('absences')); 
+}
 
     public function create()
     {

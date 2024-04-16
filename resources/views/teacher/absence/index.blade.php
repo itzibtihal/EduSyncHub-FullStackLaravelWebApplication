@@ -18,8 +18,41 @@
                 <th>Reason</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+            @foreach ($absences as $absence)
+            <tr>
+                <td>{{ $absence->user->firstname }} {{ $absence->user->lastname }}</td>
+                <td>{{ $absence->section->name }}</td>
+                <td>{{ $absence->subject->name }}</td>
+                <td>
+                    @php
+                    $startsAt = \Carbon\Carbon::parse($absence->starts_at);
+                    $endsAt = \Carbon\Carbon::parse($absence->ends_at);
+                    $duration = $endsAt->diffInMinutes($startsAt);
+                    @endphp
+                    @if ($duration < 10)
+                        <span style="color: red;">late: {{ $duration }} min</span>
+                    @else
+                        @php
+                            $days = floor($duration / 1440); // 1440 minutes in a day
+                            $remainingMinutes = $duration % 1440;
+                        @endphp
+
+                        @if ($days > 0)
+                            {{ $days }} day{{ $days > 1 ? 's' : '' }}
+                        @endif
+
+                        @if ($remainingMinutes > 0)
+                            {{ $remainingMinutes }} min
+                        @endif
+                    @endif
+                </td>
+                <td>{{ $absence->reason }}</td>
+            </tr>
+            @endforeach
+        </tbody>
     </table>
+    
    
 </div>
       
