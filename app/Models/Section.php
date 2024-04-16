@@ -13,13 +13,17 @@ class Section extends Model
 
     protected $fillable = ['name'];
 
-    public function levelSectionSpecialities()
-    {
-        return $this->hasMany(LevelSectionSpeciality::class);
+    // public function levelSectionSpecialities()
+    // {
+    //     return $this->hasMany(LevelSectionSpeciality::class);
+    // }
+
+    public function levelSectionSpeciality(){
+        return $this->hasMany(LevelSectionSpeciality::class, 'section_id', 'id')->whereNull('level_section_speciality.deleted_at');
     }
 
     public function users(){
-        return $this->belongsToMany(User::class, 'section_user');//->withPivot('starts_at', 'ends_at');
+        return $this->belongsToMany(User::class, 'section_user');
     }
 
     public function level(){
