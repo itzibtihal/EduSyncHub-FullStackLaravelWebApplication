@@ -15,6 +15,7 @@ use App\Http\Controllers\v1\Director\InstitutionsController;
 use App\Http\Controllers\v1\Director\OrganigramController;
 use App\Http\Controllers\v1\Director\ProfessorsController;
 use App\Http\Controllers\v1\Director\StudentsController;
+use App\Http\Controllers\v1\profesor\AbsenceController;
 use App\Http\Controllers\v1\Profesor\PExamsController;
 use App\Http\Controllers\v1\Profesor\PHolidaysController;
 use App\Http\Controllers\v1\Profesor\PReportsController;
@@ -109,6 +110,12 @@ Route::middleware(['custom.auth'])->group(function () {
             ->name('timesheets.store');
 
         // Route::get('/download-Timesheet', [TimesheetController::class, 'download'])->name('download.excel');
+        Route::get('/absence', [AbsenceController::class, 'index'])->name('teacher.absence');
+        Route::get('/absence/create', [AbsenceController::class, 'create'])->name('teacher.absence.create');
+        Route::post('/absence/store', [AbsenceController::class, 'store'])->name('teacher.absence.store');
+        Route::get('/get-users-in-section', [AbsenceController::class, 'getUsersInSection'])->name('getUsersInSection');
+
+
     });
 
     Route::prefix('student')->group(function () {

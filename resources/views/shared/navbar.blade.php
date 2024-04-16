@@ -88,6 +88,12 @@
                     <h3>Classes/ Courses</h3>
                 </a>
 
+                <a href="{{ route('teacher.absence') }}" class="{{ request()->routeIs('teacher.absence') ? 'active' : '' }}">
+                    <span class="material-icons-sharp">
+                        crisis_alert
+                    </span>
+                    <h3>Absence</h3>
+                </a>
 
                 <a href="{{ route('professor.exams.index') }}" class="{{ request()->routeIs('professor.exams.index') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
