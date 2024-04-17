@@ -16,6 +16,7 @@ use App\Http\Controllers\v1\Director\OrganigramController;
 use App\Http\Controllers\v1\Director\ProfessorsController;
 use App\Http\Controllers\v1\Director\StudentsController;
 use App\Http\Controllers\v1\Director\TimesheetController as DirectorTimesheetController;
+use App\Http\Controllers\v1\Director\AbsenceController as DAbsenceController;
 use App\Http\Controllers\v1\profesor\AbsenceController;
 use App\Http\Controllers\v1\Profesor\PExamsController;
 use App\Http\Controllers\v1\Profesor\PHolidaysController;
@@ -80,6 +81,16 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::post('/reminders/store', [\App\Http\Controllers\v1\Director\RemindersController::class, 'store'])->name('director.reminders.store');
         Route::get('/timesheet', [DirectorTimesheetController::class, 'index'])->name('timesheet.index');
         Route::post('/timesheet/validate', [DirectorTimesheetController::class, 'validateTimesheet'])->name('timesheets.validate');
+
+        Route::get('/absence', [DAbsenceController::class, 'index'])->name('director.absence');
+        Route::get('/absence/create', [DAbsenceController::class, 'create'])->name('director.absence.create');
+        Route::post('/absence/store', [DAbsenceController::class, 'store'])->name('director.absence.store');
+        Route::get('/absence/{absence}/edit', [DAbsenceController::class, 'edit'])->name('director.absence.edit');
+        Route::post('/absence/{absence}/update', [DAbsenceController::class, 'update'])->name('director.absence.update');
+        Route::get('/get-users-in-section', [DAbsenceController::class, 'getUsersInSection'])->name('getUsersInSection');
+        Route::delete('/absence/{exam}/delete', [DAbsenceController::class, 'destroy'])->name('director.absence.delete');
+
+        
     });
 
     Route::prefix('professor')->group(function () {

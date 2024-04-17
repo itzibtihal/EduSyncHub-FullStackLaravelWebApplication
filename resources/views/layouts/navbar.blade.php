@@ -117,7 +117,7 @@
 
 
 
-                <a href="{{ route('teacher.absence') }}" class="{{ request()->routeIs('teacher.absence') ? 'active' : '' }}">
+                <a href="{{ route('director.absence') }}" class="{{ request()->routeIs('director.absence') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         crisis_alert
                     </span>
