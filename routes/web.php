@@ -79,6 +79,7 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::get('/reminders', \App\Http\Controllers\v1\Director\RemindersController::class)->name('director.reminders');
         Route::post('/reminders/store', [\App\Http\Controllers\v1\Director\RemindersController::class, 'store'])->name('director.reminders.store');
         Route::get('/timesheet', [DirectorTimesheetController::class, 'index'])->name('timesheet.index');
+        Route::post('/timesheet/validate', [DirectorTimesheetController::class, 'validateTimesheet'])->name('timesheets.validate');
     });
 
     Route::prefix('professor')->group(function () {

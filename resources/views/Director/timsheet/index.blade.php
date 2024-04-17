@@ -29,25 +29,68 @@
                        
                        
                         <td>
-                            @if($timesheet->is_valid == 0)
-                            <button class="validate-btn" onclick="validateTimesheet({{ $timesheet->id }})">
-                                <i class="material-icons-sharp">check_circle_outline</i>
-                            </button>
+                           
+                            @if($timesheet->is_valid == 1)
+                                <span class="validated-icon">
+                                    <span class="material-icons-sharp">check_circle</span>
+                                </span>
+                            @elseif($timesheet->is_valid == 0)
+                                <button class="validate-btn" onclick="validateTimesheet({{ $timesheet->id }})" style="border-radius: 10px">
+                                    <span class="material-icons-sharp">report_gmailerrorred</span> 
+                                </button>
                             @else
-                            <span class="validated-icon">
-                                <i class="material-icons-sharp">check_circle</i>
-                            </span>
+                                <span class="default-content">Default content here</span>
                             @endif
                         </td>
+                        
+
+                        
                     </tr>
                     @endforeach
                 </tbody>
-
+              
           
 
             </table>
-        </div>
 
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    function validateTimesheet(timesheetId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You are about to validate this timesheet.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, validate it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('timesheets.validate') }}",
+                    method: 'POST',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'timesheet_id': timesheetId
+                    },
+                    success: function(response) {
+                        Swal.fire(
+                            'Validated!',
+                            'The timesheet has been validated.',
+                            'success'
+                        ).then(function() {
+                            location.reload(); // Reload the page after validation
+                        });
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+        </div>
+       
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script>
             function validateTimesheet(timesheetId) {
                 swal({
@@ -65,7 +108,7 @@
                     }
                 });
             }
-        </script>
+        </script> --}}
 
 
 {{-- here i want tolist timsheets i want to get in staff name the userfirstname +lastname / time sheet file i want it to be clickeble and open window to view the excel file / in the last i want to chek if is valid =0 to click on a button with valid and check icone and use sweet alert to confirm the validation form to the isvalid will be from 0 to 1 and if isvalid already =1 it will be green with small green bg with validated  --}}
