@@ -15,6 +15,7 @@ use App\Http\Controllers\v1\Director\InstitutionsController;
 use App\Http\Controllers\v1\Director\OrganigramController;
 use App\Http\Controllers\v1\Director\ProfessorsController;
 use App\Http\Controllers\v1\Director\StudentsController;
+use App\Http\Controllers\v1\Director\TimesheetController as DirectorTimesheetController;
 use App\Http\Controllers\v1\profesor\AbsenceController;
 use App\Http\Controllers\v1\Profesor\PExamsController;
 use App\Http\Controllers\v1\Profesor\PHolidaysController;
@@ -77,6 +78,7 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::delete('/holidays/{holiday}/delete', [HolidaysController::class, 'destroy'])->name('director.holidays.destroy');
         Route::get('/reminders', \App\Http\Controllers\v1\Director\RemindersController::class)->name('director.reminders');
         Route::post('/reminders/store', [\App\Http\Controllers\v1\Director\RemindersController::class, 'store'])->name('director.reminders.store');
+        Route::get('/timesheet', [DirectorTimesheetController::class, 'index'])->name('timesheet.index');
     });
 
     Route::prefix('professor')->group(function () {
@@ -114,8 +116,6 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::get('/absence/create', [AbsenceController::class, 'create'])->name('teacher.absence.create');
         Route::post('/absence/store', [AbsenceController::class, 'store'])->name('teacher.absence.store');
         Route::get('/get-users-in-section', [AbsenceController::class, 'getUsersInSection'])->name('getUsersInSection');
-
-
     });
 
     Route::prefix('student')->group(function () {
