@@ -191,7 +191,7 @@ button[type="submit"]:hover {
                 </a>
 
 
-                <a href="" class="{{ request()->routeIs('') ? 'active' : '' }}">
+                <a href="{{ route('director.exams') }}" class="{{ request()->routeIs('director.exams') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
@@ -199,6 +199,37 @@ button[type="submit"]:hover {
                 </a>
 
 
+
+                <a href="{{ route('director.absence') }}" class="{{ request()->routeIs('director.absence') ? 'active' : '' }}">
+                    <span class="material-icons-sharp">
+                        crisis_alert
+                    </span>
+                    <h3>Absence</h3>
+                </a>
+  
+                <a href="{{ route('timesheet.index') }}" class="{{ request()->routeIs('timesheet.index') ? 'active' : '' }}">
+                    <span class="material-icons-sharp">
+                        report_gmailerrorred
+                    </span>
+                    <h3>Timesheets</h3>
+                </a>
+
+
+                <a href="{{ route('director.holidays') }}" class="{{ request()->routeIs('director.holidays') ? 'active' : '' }}">
+                    <span class="material-icons-sharp">
+                        travel_explore
+                    </span>
+                    <h3>Holidays</h3>
+                </a>
+               
+
+                <a href="{{ route('director.reminders') }}" class="{{ request()->routeIs('director.reminders') ? 'active' : '' }}">
+                    <span class="material-icons-sharp">
+                        notifications_active
+                    </span>
+                    <h3> Agenda </h3>
+                    <span class="message-count">{{ $reminderCount }}</span>
+                </a>
 
 
 

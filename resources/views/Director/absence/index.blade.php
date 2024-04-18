@@ -4,7 +4,7 @@
 <h1>Absence</h1>
        
 <div class="recent-orders">
-    <h2>Today's Absence</h2>
+    <h2>last added Absence</h2>
     <a href="{{ route('director.absence.create') }}">Add an Absence</a>
     <table>
         <thead>
