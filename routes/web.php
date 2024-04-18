@@ -63,6 +63,7 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::get('/professors/{professor}/edit', [ProfessorsController::class, 'edit'])->name('professors.edit');
         Route::post('/professors/{professor}/delete', [ProfessorsController::class, 'destroy'])->name('professors.delete');
         Route::get('/organigram', [OrganigramController::class, 'index'])->name('director.organigram');
+        Route::post('/organigram/add-level', [OrganigramController::class, 'storelevel'])->name('addlevel');
         Route::get('/classes', [ClassesController::class, 'index'])->name('director.classes');
         Route::get('/sectionstudents', [ClassesController::class, 'students'])->name('director.sectionstudents');
 
