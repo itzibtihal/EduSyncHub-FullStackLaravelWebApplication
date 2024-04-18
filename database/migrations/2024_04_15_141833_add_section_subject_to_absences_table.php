@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('absences', function (Blueprint $table) {
-            $table->unsignedBigInteger('section_id')->nullable();
-            $table->unsignedBigInteger('subject_id')->nullable();
+        // Schema::table('absences', function (Blueprint $table) {
+        //     $table->unsignedBigInteger('section_id')->nullable();
+        //     $table->unsignedBigInteger('subject_id')->nullable();
 
-            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
-            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
-        });
+        //     $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
+        //     $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
+        // });
     }
 
     /**

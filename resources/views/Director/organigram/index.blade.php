@@ -75,6 +75,16 @@
             /* Adjust margin as needed */
         }
 
+        .specialty-input {
+            border: none;
+            border-bottom: 1px solid #000;
+            outline: none;
+            background-color: transparent;
+            width: 100%;
+            margin-bottom: 10px;
+            /* Adjust margin as needed */
+        }
+
         .icons-container {
             display: flex;
             align-items: center;
@@ -96,7 +106,8 @@
 <body>
 
     <div class="container">
-        <!-- Sidebar Section --> <aside>
+        <!-- Sidebar Section -->
+        <aside>
 
             <div class="toggle">
                 <div class="logo">
@@ -151,7 +162,8 @@
 
                 </a>
 
-                <a href="{{ route('director.classes') }}" class="{{ request()->routeIs('director.classes') ? 'active' : '' }}">
+                <a href="{{ route('director.classes') }}"
+                    class="{{ request()->routeIs('director.classes') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         school
                     </span>
@@ -159,7 +171,8 @@
                 </a>
 
 
-                <a href="{{ route('director.exams') }}" class="{{ request()->routeIs('director.exams') ? 'active' : '' }}">
+                <a href="{{ route('director.exams') }}"
+                    class="{{ request()->routeIs('director.exams') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
@@ -168,14 +181,16 @@
 
 
 
-                <a href="{{ route('director.absence') }}" class="{{ request()->routeIs('director.absence') ? 'active' : '' }}">
+                <a href="{{ route('director.absence') }}"
+                    class="{{ request()->routeIs('director.absence') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         crisis_alert
                     </span>
                     <h3>Absence</h3>
                 </a>
-  
-                <a href="{{ route('timesheet.index') }}" class="{{ request()->routeIs('timesheet.index') ? 'active' : '' }}">
+
+                <a href="{{ route('timesheet.index') }}"
+                    class="{{ request()->routeIs('timesheet.index') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         report_gmailerrorred
                     </span>
@@ -183,15 +198,17 @@
                 </a>
 
 
-                <a href="{{ route('director.holidays') }}" class="{{ request()->routeIs('director.holidays') ? 'active' : '' }}">
+                <a href="{{ route('director.holidays') }}"
+                    class="{{ request()->routeIs('director.holidays') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         travel_explore
                     </span>
                     <h3>Holidays</h3>
                 </a>
-               
 
-                <a href="{{ route('director.reminders') }}" class="{{ request()->routeIs('director.reminders') ? 'active' : '' }}">
+
+                <a href="{{ route('director.reminders') }}"
+                    class="{{ request()->routeIs('director.reminders') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         notifications_active
                     </span>
@@ -242,9 +259,9 @@
             <div class="recent-orders">
                 <h2>All Requests</h2>
 
-                <div class="school-chart"> 
+                <div class="school-chart">
                     <div class="item cycle"><span>Cycle: Middle </span>
-                       
+
                         <div class="icons-container">
                             <i class="fas fa-eye-slash toggle-icon"></i>
                             <i class="fas fa-plus add-button"></i>
@@ -276,7 +293,7 @@
                             <i class="fas fa-trash"></i>
                         </div>
                     </div>
-                    
+
                     <div class="level item"><span>Level: 2nd Year</span>
                         <div class="icons-container">
                             <i class="fas fa-eye-slash toggle-icon"></i>
@@ -301,7 +318,7 @@
                             <i class="fas fa-trash"></i>
                         </div>
                     </div>
-                    
+
                     <div class="level item"><span>Level: 3rd Year</span>
                         <div class="icons-container">
                             <i class="fas fa-eye-slash toggle-icon"></i>
@@ -326,7 +343,7 @@
                             <i class="fas fa-trash"></i>
                         </div>
                     </div>
-                   
+
 
 
 
@@ -353,105 +370,105 @@
         <!-- End of Main Content -->
 
         <!-- Right Section -->
-<div class="right-section">
-    <div class="nav">
-        <button id="menu-btn">
-            <span class="material-icons-sharp">
-                menu
-            </span>
-        </button>
-        <div class="dark-mode">
-            <span class="material-icons-sharp active">
-                light_mode
-            </span>
-            <span class="material-icons-sharp">
-                dark_mode
-            </span>
-        </div>
-
-        <div class="profile">
-            <div class="info">
-                <p>Hey, <b>{{Auth::user()->lastname}}</b></p>
-                <small class="text-muted">{{ Auth::user()->role()->first()->name }}</small>
-            </div>
-            <div class="profile-photo">
-                <img src="{{ asset('assets/images/profile-1.jpg') }}">
-            </div>
-        </div>
-
-    </div>
-    <!-- End of Nav -->
-
-
-
-    
-
-    <div class="user-profile">
-        <div class="logo">
-            <img src="{{ asset('assets/images/edubg.png') }}" id="logo-image">
-            <h2>EduSyncHub</h2>
-            <p>Espace Educatif </p>
-        </div>
-    </div>
-
-    <div class="reminders">
-        <div class="header">
-            <h2>Reminders</h2>
-            <span class="material-icons-sharp">
-                notifications_none
-            </span>
-        </div>
-
-        <div class="notification">
-            <div class="icon">
-                <span class="material-icons-sharp">
-                    volume_up
-                </span>
-            </div>
-            <div class="content">
-                <div class="info">
-                    <h3>Workshop</h3>
-                    <small class="text_muted">
-                        08:00 AM - 12:00 PM
-                    </small>
+        <div class="right-section">
+            <div class="nav">
+                <button id="menu-btn">
+                    <span class="material-icons-sharp">
+                        menu
+                    </span>
+                </button>
+                <div class="dark-mode">
+                    <span class="material-icons-sharp active">
+                        light_mode
+                    </span>
+                    <span class="material-icons-sharp">
+                        dark_mode
+                    </span>
                 </div>
-                <span class="material-icons-sharp">
-                    more_vert
-                </span>
-            </div>
-        </div>
 
-        <div class="notification deactive">
-            <div class="icon">
-                <span class="material-icons-sharp">
-                    edit
-                </span>
-            </div>
-            <div class="content">
-                <div class="info">
-                    <h3>Workshop</h3>
-                    <small class="text_muted">
-                        08:00 AM - 12:00 PM
-                    </small>
+                <div class="profile">
+                    <div class="info">
+                        <p>Hey, <b>{{ Auth::user()->lastname }}</b></p>
+                        <small class="text-muted">{{ Auth::user()->role()->first()->name }}</small>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="{{ asset('assets/images/profile-1.jpg') }}">
+                    </div>
                 </div>
-                <span class="material-icons-sharp">
-                    more_vert
-                </span>
+
             </div>
-        </div>
+            <!-- End of Nav -->
 
-        <div class="notification add-reminder">
-            <div>
-                <span class="material-icons-sharp">
-                    add
-                </span>
-                <h3>Add Reminder</h3>
+
+
+
+
+            <div class="user-profile">
+                <div class="logo">
+                    <img src="{{ asset('assets/images/edubg.png') }}" id="logo-image">
+                    <h2>EduSyncHub</h2>
+                    <p>Espace Educatif </p>
+                </div>
             </div>
+
+            <div class="reminders">
+                <div class="header">
+                    <h2>Reminders</h2>
+                    <span class="material-icons-sharp">
+                        notifications_none
+                    </span>
+                </div>
+
+                <div class="notification">
+                    <div class="icon">
+                        <span class="material-icons-sharp">
+                            volume_up
+                        </span>
+                    </div>
+                    <div class="content">
+                        <div class="info">
+                            <h3>Workshop</h3>
+                            <small class="text_muted">
+                                08:00 AM - 12:00 PM
+                            </small>
+                        </div>
+                        <span class="material-icons-sharp">
+                            more_vert
+                        </span>
+                    </div>
+                </div>
+
+                <div class="notification deactive">
+                    <div class="icon">
+                        <span class="material-icons-sharp">
+                            edit
+                        </span>
+                    </div>
+                    <div class="content">
+                        <div class="info">
+                            <h3>Workshop</h3>
+                            <small class="text_muted">
+                                08:00 AM - 12:00 PM
+                            </small>
+                        </div>
+                        <span class="material-icons-sharp">
+                            more_vert
+                        </span>
+                    </div>
+                </div>
+
+                <div class="notification add-reminder">
+                    <div>
+                        <span class="material-icons-sharp">
+                            add
+                        </span>
+                        <h3>Add Reminder</h3>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-
-    </div>
-
-</div>
 
 
     </div>
@@ -459,8 +476,8 @@
     <script src="orders.js"></script>
     <script src="index.js"></script>
     <script>
-        document.querySelectorAll('.cycle .toggle-icon').forEach(function (icon) {
-            icon.addEventListener('click', function () {
+        document.querySelectorAll('.cycle .toggle-icon').forEach(function(icon) {
+            icon.addEventListener('click', function() {
                 var cycle = icon.closest('.cycle');
                 var children = cycle.nextElementSibling;
                 while (children && !children.classList.contains('cycle')) {
@@ -470,8 +487,8 @@
             });
         });
 
-        document.querySelectorAll('.speciality .toggle-icon').forEach(function (icon) {
-            icon.addEventListener('click', function () {
+        document.querySelectorAll('.speciality .toggle-icon').forEach(function(icon) {
+            icon.addEventListener('click', function() {
                 var speciality = icon.closest('.speciality');
                 var sections = speciality.nextElementSibling;
                 while (sections && !sections.classList.contains('speciality')) {
@@ -483,15 +500,16 @@
             });
         });
 
-        document.querySelectorAll('.level .toggle-icon').forEach(function (icon) {
-            icon.addEventListener('click', function () {
+        document.querySelectorAll('.level .toggle-icon').forEach(function(icon) {
+            icon.addEventListener('click', function() {
                 var level = icon.closest('.level');
                 var speciality = level.nextElementSibling;
                 var sections = speciality.nextElementSibling;
 
                 speciality.style.display = speciality.style.display === 'none' ? '' : 'none';
 
-                while (sections && !sections.classList.contains('level') && !sections.classList.contains('cycle')) {
+                while (sections && !sections.classList.contains('level') && !sections.classList.contains(
+                        'cycle')) {
                     sections.style.display = sections.style.display === 'none' ? '' : 'none';
                     sections = sections.nextElementSibling;
                 }
@@ -499,21 +517,83 @@
 
 
         });
-        document.addEventListener('DOMContentLoaded', function () {
-    const addButtons = document.querySelectorAll('.add-button');
-    const addSpecButtons = document.querySelectorAll('.add-specialty');
 
-    addButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-            const levelItem = document.createElement('div');
-            levelItem.classList.add('level', 'item');
-            levelItem.innerHTML = `
-                <form action="{{ route('addlevel') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="cycle_id" value="1">
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const addButtons = document.querySelectorAll('.add-button');
+            const addSpecButtons = document.querySelectorAll('.add-specialty');
+
+            addButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const levelItem = document.createElement('div');
+                    levelItem.classList.add('level', 'item');
+                    levelItem.innerHTML = `
+                    
+                        <form action="{{ route('addlevel') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="cycle_id" value="1">
+                            <span>
+                                <div class="input-container">
+                                    <input type="text" class="level-input" name="name" placeholder="Type level name here">
+                                    <div class="icons-container">
+                                        <button type="submit" class="add-button"><i class="fas fa-check"></i></button>
+                                        <button type="button" class="remove-button"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </span>
+                        </form>
+                    `;
+
+                    button.closest('.item.cycle').parentNode.insertBefore(levelItem, button.closest('.item.cycle').nextSibling);
+
+                    const removeButton = levelItem.querySelector('.remove-button');
+                    removeButton.addEventListener('click', function() {
+                        levelItem.remove();
+                    });
+
+                    // const addSpecButtons = levelItem.querySelectorAll('.add-specialty');
+                    // addSpecButtons.forEach(function(addSpecButton) {
+                    //     addSpecButton.addEventListener('click', function() {
+                    //         const specialtyItem = document.createElement('div');
+                    //         specialtyItem.classList.add('speciality', 'item');
+                    //         specialtyItem.innerHTML = `
+                    //             <form action="">
+                    //                 <span>
+                    //                     <div class="input-container">
+                    //                         <input type="text" class="specialty-input" placeholder="Type specialty here">
+                    //                         <div class="icons-container">
+                    //                             <button type="submit" class="add-button"><i class="fas fa-check"></i></button>
+                    //                             <button type="button" class="remove-button"><i class="fas fa-times"></i></button>
+                    //                         </div>
+                    //                     </div>
+                    //                 </span>
+                    //             </form>
+                    //         `;
+
+                    //         button.closest('.speciality.item').parentNode.insertBefore(specialtyItem, button.closest('.speciality.item').nextSibling);
+
+                    //         const removeSpecButton = specialtyItem.querySelector('.remove-button');
+                    //         removeSpecButton.addEventListener('click', function() {
+                    //             specialtyItem.remove();
+                    //         });
+                    //     });
+                    // });
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const addSpecialtyButtons = document.querySelectorAll('.add-specialty');
+
+    addSpecialtyButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            const specialtyItem = document.createElement('div');
+            specialtyItem.classList.add('speciality', 'item');
+            specialtyItem.innerHTML = `
+                <form action="">
                     <span>
                         <div class="input-container">
-                            <input type="text" class="level-input" name="name" placeholder="Type level name here">
+                            <input type="text" class="specialty-input" placeholder="Type specialty here" name="name">
                             <div class="icons-container">
                                 <button type="submit" class="add-button"><i class="fas fa-check"></i></button>
                                 <button type="button" class="remove-button"><i class="fas fa-times"></i></button>
@@ -523,43 +603,13 @@
                 </form>
             `;
 
-            button.closest('.item.cycle').parentNode.insertBefore(levelItem, button.closest('.item.cycle').nextSibling);
+            // Insert the specialty item before the current button's parent (specialty container)
+            button.parentNode.insertBefore(specialtyItem, button);
 
-            const removeButton = levelItem.querySelector('.remove-button');
-            removeButton.addEventListener('click', function () {
-                levelItem.remove();
+            const removeSpecButton = specialtyItem.querySelector('.remove-button');
+            removeSpecButton.addEventListener('click', function() {
+                specialtyItem.remove();
             });
-
-
-
-            
-            const addSpecButton = levelItem.querySelector('.add-specialty');
-            addSpecButton.addEventListener('click', function () {
-                const specialtyItem = document.createElement('div');
-                specialtyItem.classList.add('speciality', 'item');
-                specialtyItem.innerHTML = `
-                    <form action="">
-                        <span>
-                            <div class="input-container">
-                                <input type="text" class="specialty-input" placeholder="Type specialty here">
-                                <div class="icons-container">
-                                <button type="submit" class="add-button"><i class="fas fa-check"></i></button>
-                                <button type="button" class="remove-button"><i class="fas fa-times"></i></button>
-                            </div>
-                            </div>
-                        </span>
-                    </form>
-                `;
-
-                button.closest('.speciality.item').parentNode.insertBefore(specialtyItem, button.closest('.speciality.item').nextSibling);
-
-                const removeSpecButton = specialtyItem.querySelector('.remove-button');
-                removeSpecButton.addEventListener('click', function () {
-                    specialtyItem.remove();
-                });
-            });
-
-
         });
     });
 });
