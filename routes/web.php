@@ -60,6 +60,8 @@ Route::middleware(['custom.auth'])->group(function () {
 
 // Route for the delete action
 Route::delete('/students/{student}', [StudentsController::class, 'destroy'])->name('students.delete');
+Route::put('/students/{student}', [StudentsController::class, 'update'])->name('students.update');
+
 
         Route::get('/professors', [DirectorController::class, 'professors'])->name('director.professors');
         Route::get('/professors/create', [ProfessorsController::class, 'create'])->name('professors.create');
