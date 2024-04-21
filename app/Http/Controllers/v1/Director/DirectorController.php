@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\v1\Director;
 
 use App\Http\Controllers\Controller;
+use App\Models\Absence;
+use App\Models\Exam;
 use App\Models\User;
 use App\Models\UserInstitution;
 use Illuminate\Http\Request;
@@ -11,8 +13,13 @@ class DirectorController extends Controller
 {
     public function dashboard()
     {
+        $userCount = User::where('role_id', 3)->count();
+        $examsCount = Exam::whereDate('created_at', today())->count();
+        $absenceCount = Absence::count();
+        $lastUsers = User::latest()->take(4)->get();
+        $lastExams = Exam::latest()->take(4)->get();
         // Logic for teacher dashboard
-        return view('Director.dashboard');
+        return view('Director.dashboard',compact('userCount','examsCount','absenceCount','lastUsers','lastExams'));
     }
 
 

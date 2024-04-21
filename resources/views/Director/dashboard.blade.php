@@ -9,7 +9,7 @@
                 <div class="status">
                     <div class="info">
                         <h3>TOTAL Students</h3>
-                        <h1></h1>
+                        <h1>{{ $userCount }}</h1>
                     </div>
                     <div class="progresss">
                         <svg>
@@ -25,7 +25,7 @@
                 <div class="status">
                     <div class="info">
                         <h3>Today's Exams</h3>
-                        <h1></h1>
+                        <h1>{{ $examsCount }}</h1>
                     </div>
                     <div class="progresss">
                         <svg>
@@ -40,8 +40,8 @@
             <div class="searches">
                 <div class="status">
                     <div class="info">
-                        <h3> Success Rate </h3>
-                        <h1></h1>
+                        <h3> Total absence </h3>
+                        <h1>{{ $absenceCount }}</h1>
                     </div>
                     <div class="progresss">
                         <svg>
@@ -58,28 +58,17 @@
 
        <!-- New Users Section -->
        <div class="new-users">
-        <h2>New Students</h2>
+        <h2>New Users</h2>
         <div class="user-list">
-            <div class="user">
-                <img src="images/profile-2.jpg">
-                <h2>Jack</h2>
-                <p>54 Min Ago</p>
-            </div>
-            <div class="user">
-                <img src="images/profile-3.jpg">
-                <h2>Amir</h2>
-                <p>3 Hours Ago</p>
-            </div>
-            <div class="user">
-                <img src="images/profile-4.jpg">
-                <h2>Ember</h2>
-                <p>6 Hours Ago</p>
-            </div>
-            <div class="user">
-                <img src="images/plus.png">
-                <h2>More</h2>
-                <a href="newStudents.html"><p>New Student</p></a>
-            </div>
+            @foreach($lastUsers as $lastUser)
+        <div class="user">
+            <a href="{{ asset('storage/' . $lastUser->avatar) }}" target="_blank">
+                <img src="{{ asset('storage/' . $lastUser->avatar) }}" alt="Profile Image">
+            </a>
+            <h2>{{ $lastUser->firstname }} {{ $lastUser->lastname }}</h2>
+            <p>{{ $lastUser->created_at->diffForHumans() }}</p>
+        </div>
+        @endforeach
         </div>
     </div>
 
@@ -95,9 +84,25 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        @foreach($lastExams as $exam)
+                        <tr>
+                            <td>{{ $exam->title }}</td>
+                            <td>{{ $exam->date }}</td>
+                            <td>{{ $exam->duration }} minutes</td>
+                            <td>
+                                @php
+                                    $professor = App\Models\User::where('id', $exam->professor_id)->first();
+                                    echo "DR. ";
+                                      echo $professor->lastname;
+                                @endphp
+                            </td>
+                            <td></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
-                <a href="#">Show All</a>
+                <a href="{{ route('director.exams') }}">Show All</a>
             </div>
 
 @endsection

@@ -5,24 +5,103 @@
 <h1>Dashboard</h1>
        
       
+<div class="new-users">
+    
+    <div class="user-list">
+        <div>
+        <h2>Nice to see you again Dr . {{ auth()->user()->lastname }} {{ auth()->user()->firstname }} !</h2>
+        <br>
+        <p style="color: green"> Dont forget to keep your timesheet UPDATED! </p>
+    </div>       
+        @if(empty(auth()->user()->avatar))
+            <img src="{{ asset('assets/img/img/avatar-1.png') }}" alt="Profile Image" style="width: 100px; border-radius: 50%;">
+        @else
+            <img src="{{ asset('storage/' .  auth()->user()->avatar) }}" alt="Profile Image" style="width: 100%; border-radius: 50%;">
+        @endif
+    </div>
+</div>
 
         <div class="recent-orders">
-                <h2>Recent exams</h2>
+                <h2>My Recent exams</h2>
                 <table>
                     <thead>
                         <tr>
-                            <th>title</th>
+                            <th>Title</th>
                             <th>Date</th>
                             <th>Duration</th>
-                            <th>Status</th>
+                            <th>subject</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        @foreach($exams as $exam)
+                        <tr>
+                            <td>{{ $exam->title }}</td>
+                            <td>{{ $exam->date }}</td>
+                            <td>{{ $exam->duration }}</td>
+                            <td>{{ $exam->subject->name }}</td>
+                            <td></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
-                <a href="#">Show All</a>
-            </div>
+                <a href="{{ route('professor.exams.index') }}">Show All</a>
+        </div>
 
+        <div class="recent-orders">
+            <h2> Today's absence</h2>
+            <table> 
+                <thead>
+                    <tr>
+                        <th>Student full Name</th>
+                        <th>Section</th>
+                        <th>Subject</th>
+                        <th>Duration</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($absences as $absence)
+                        <tr>
+                            <td>{{ $absence->user->firstname }} {{ $absence->user->lastname }}</td>
+                            <td>{{ $absence->section->name }}</td>
+                            <td>{{ $absence->subject->name  }}</td>
+                            <td>
+                                @php
+                                $startsAt = \Carbon\Carbon::parse($absence->starts_at);
+                                $endsAt = \Carbon\Carbon::parse($absence->ends_at);
+                                $duration = $endsAt->diffInMinutes($startsAt);
+                                @endphp
+                                @if ($duration < 10)
+                                    <span style="color: red;">late: {{ $duration }} min</span>
+                                @else
+                                    @php
+                                        $days = floor($duration / 1440); // 1440 minutes in a day
+                                        $remainingMinutes = $duration % 1440;
+                                    @endphp
+
+                                    @if ($days > 0)
+                                        {{ $days }} day{{ $days > 1 ? 's' : '' }}
+                                    @endif
+
+                                    @if ($remainingMinutes > 0)
+                                        {{ $remainingMinutes }} min
+                                    @endif
+                                @endif
+                            </td>
+                            <td>{{ $absence->reason }}</td>
+                        </tr>
+                    @endforeach
+
+                    @if (empty($absences))
+                        <tr>
+                            <td colspan="5">No absence was marked today</td>
+                        </tr>
+                    @endif
+                </tbody>
+            </table>
+            <a href="{{ route('teacher.absence') }}">Show All</a>
+    </div>
 @endsection
 
 @section('right-section')

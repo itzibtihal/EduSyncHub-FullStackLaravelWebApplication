@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\v1\Director\DirectorController;
-use App\Http\Controllers\v1\Professor\ProfessorController;
+use App\Http\Controllers\v1\Professor\ProfessorController as ProController;
 use App\Http\Controllers\v1\Student\StudentController;
 use App\Helpers\RoleHelper;
 use App\Http\Controllers\FileUploadController;
@@ -40,6 +40,10 @@ Route::get('/', function () {
 });
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.get');
+
 // Route::middleware(['custom.auth', 'check.director'])->get('/director/dashboard', [DirectorController::class, 'dashboard'])->name('director.dashboard');
 // Route::middleware(['custom.auth'])->get('/dashboard', [DirectorController::class, 'dashboard'])->name('dashboard');
 
@@ -47,9 +51,9 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::middleware(['custom.auth'])->group(function () {
     Route::prefix('director')->group(function () {
 
-        Route::get('/dashboard', function () {
-            return RoleHelper::checkRoleAndReturnView(1, 'director.dashboard');
-        })->name('director.dashboard');
+        Route::get('/dashboard', [DirectorController::class, 'dashboard'])
+   
+    ->name('director.dashboard');
 
         Route::get('/students', [DirectorController::class, 'students'])->name('director.students');
         // Route::get('/institutions', [InstitutionsController::class, 'index'])->name('director.institutions');
@@ -104,9 +108,10 @@ Route::put('/students/{student}', [StudentsController::class, 'update'])->name('
     });
 
     Route::prefix('professor')->group(function () {
-        Route::get('/dashboard', function () {
-            return RoleHelper::checkRoleAndReturnView(2, 'teacher.dashboard');
-        })->name('teacher.dashboard');
+        // Route::get('/dashboard', function () {
+        //     return RoleHelper::checkRoleAndReturnView(2, 'teacher.dashboard');
+        // })->name('teacher.dashboard');
+        Route::get('/dashboard', [ProController::class, 'dashboard'])->name('teacher.dashboard');
 
         Route::get('/holidays', [PHolidaysController::class, 'index'])
             ->name('professor.holidays.index');
