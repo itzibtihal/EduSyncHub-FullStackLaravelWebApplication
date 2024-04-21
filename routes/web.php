@@ -56,6 +56,11 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::resource('/institutions', InstitutionsController::class);
         Route::get('/students/create', [StudentsController::class, 'create'])->name('student.create');
         Route::post('/students/store', [StudentsController::class, 'store'])->name('students.store');
+        Route::get('/students/{student}/edit', [StudentsController::class, 'edit'])->name('students.edit');
+
+// Route for the delete action
+Route::delete('/students/{student}', [StudentsController::class, 'destroy'])->name('students.delete');
+
         Route::get('/professors', [DirectorController::class, 'professors'])->name('director.professors');
         Route::get('/professors/create', [ProfessorsController::class, 'create'])->name('professors.create');
         Route::post('/professors/store', [ProfessorsController::class, 'store'])->name('professors.store');

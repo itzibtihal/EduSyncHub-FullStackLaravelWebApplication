@@ -19,7 +19,18 @@ class DirectorController extends Controller
     public function students()
     {
         
-        return view('Director.users.students.index');
+        $students = User::where('role_id', 3)
+            ->latest()
+            ->take(4)
+            ->get();
+
+        $allstudents = User::where('role_id', 3)
+            ->paginate(5);
+        
+
+        return view('Director.users.students.index', compact('students', 'allstudents'));
+
+       
     }
     
     

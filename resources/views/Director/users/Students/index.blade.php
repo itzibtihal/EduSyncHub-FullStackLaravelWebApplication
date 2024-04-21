@@ -1,35 +1,28 @@
 @extends('layouts.navbar')
 
-
 @section('main-content')
 <h1>Students</h1>
           
 <!-- last 4 Users Section -->
 <div class="new-users">
-    <h2>Pending Students</h2>
+    <h2>last added Students</h2>
+    <!-- Begin foreach loop -->
     <div class="user-list">
+        @foreach($students as $student)
         <div class="user">
-            <img src="images/profile-2.jpg">
-            <h2>Jack</h2>
-            <p>54 Min Ago</p>
+            <a href="{{ asset('storage/' . $student->avatar) }}" target="_blank">
+                <img src="{{ asset('storage/' . $student->avatar) }}" alt="Profile Image">
+            </a>
+            <h2>{{ $student->firstname }} {{ $student->lastname }}</h2>
+            <p>{{ $student->created_at->diffForHumans() }}</p>
         </div>
-        <div class="user">
-            <img src="images/profile-3.jpg">
-            <h2>Amir</h2>
-            <p>3 Hours Ago</p>
-        </div>
-        <div class="user">
-            <img src="images/profile-4.jpg">
-            <h2>Ember</h2>
-            <p>6 Hours Ago</p>
-        </div>
-        <div class="user">
-            <img src="images/profile-4.jpg">
-            <h2>Ember</h2>
-            <p>7 Hours Ago</p>
-        </div>
+        @endforeach
     </div>
+    <!-- End foreach loop -->
 </div>
+<!-- End of 4 Users Section -->
+   
+
 <!-- End of 4 Users Section -->
 
 <div class="recent-orders">
@@ -44,11 +37,39 @@
                 <th>Phone Number</th>
                 <th>Email</th>
                 <th>Status</th>
+                <th></th>
                
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+            @foreach($allstudents as $allstudent)
+                    <tr>
+                        <td>
+                            <a href="{{ asset('storage/' . $allstudent->avatar) }}" target="_blank">
+                                <img src="{{ asset('storage/' . $allstudent->avatar) }}" alt="Profile Image" style="width: 40px; border-radius: 50%;">
+                            </a>
+                        </td>
+                        <td>{{ $allstudent->firstname }} {{ $allstudent->lastname }}</td>
+                        <td>{{ $allstudent->sections->pluck('name')->join(', ') }}</td>
+                        <td>{{ $allstudent->phone }}</td>
+                        <td>{{ $allstudent->email }}</td>
+                        <td>{{ $allstudent->status }}</td>
+                        <td>
+                            <td>
+                                {{-- <a href="{{ route('student.edit', $allstudent->id) }}">Edit</a> --}}
+                                <form action="{{ route('students.delete', $allstudent->id) }}" method="POST" id="delete-form-{{ $allstudent->id }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="{{ route('students.edit', $allstudent->id) }}">Edit</a>
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $allstudent->id }}').submit();">Delete</a>
+                                </form>
+                            </td>
+                        </td>
+                    </tr>
+                    @endforeach
+        </tbody>
     </table>
+    {{ $allstudents->links() }}
 </div>
 @endsection
 
