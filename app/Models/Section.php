@@ -76,5 +76,9 @@ class Section extends Model
         }
         return $this->name ;
     }
+    public function specialities()
+{
+    return $this->belongsToMany(Speciality::class, 'speciality_section');
+}
 
 }

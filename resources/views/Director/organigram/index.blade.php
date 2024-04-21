@@ -269,80 +269,59 @@
                             <i class="fas fa-trash"></i>
                         </div>
                     </div>
-                    <div class="level item"><span>Level: 1st Year</span>
-                        <div class="icons-container">
-                            <i class="fas fa-eye-slash toggle-icon "></i>
-                            <i class="fas fa-plus add-specialty"></i>
-                            <i class="fas fa-pencil-alt"></i>
-                            <i class="fas fa-trash"></i>
+                    @foreach ($levels as $level)
+                        <div class="level item"><span>Level: {{ $level->name }}</span>
+                            <div class="icons-container">
+                                <i class="fas fa-eye-slash toggle-icon "></i>
+                                <i class="fas fa-plus add-specialty" data-level-id="{{ $level->id }}"
+                                    data-has-speciality="{{ $level->specialities()->exists() ? 'yes' : 'no' }}"></i>
+                                <i class="fas fa-pencil-alt"></i>
+                                <i class="fas fa-trash"></i>
+                            </div>
                         </div>
-                    </div>
-                    <div class="speciality item"><span>Speciality: Default</span>
-                        <div class="icons-container">
-                            <i class="fas fa-eye-slash toggle-icon"></i>
-                            <i class="fas fa-plus"></i>
-                            <i class="fas fa-pencil-alt"></i>
-                            <i class="fas fa-trash"></i>
-                        </div>
-                    </div>
-                    <div class="section item"><span>Section: Gr A</span>
-                        <div class="icons-container">
-                            <i class="fas fa-eye-slash"></i>
-                            <i class="fas fa-plus"></i>
-                            <i class="fas fa-pencil-alt"></i>
-                            <i class="fas fa-trash"></i>
-                        </div>
-                    </div>
+                        @foreach ($level->levelSpecialities as $speciality)
+                            <div class="speciality item">
+                                <span>Speciality: {{ $speciality->name }}</span>
+                                <div class="icons-container">
+                                    <i class="fas fa-eye-slash toggle-icon"></i>
+                                    <i class="fas fa-plus add-section" data-speciality-id="{{ $speciality->id }}"></i>
+                                    <i class="fas fa-pencil-alt"></i>
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                            </div>
 
-                    <div class="level item"><span>Level: 2nd Year</span>
-                        <div class="icons-container">
-                            <i class="fas fa-eye-slash toggle-icon"></i>
-                            <i class="fas fa-plus"></i>
-                            <i class="fas fa-pencil-alt"></i>
-                            <i class="fas fa-trash"></i>
-                        </div>
-                    </div>
-                    <div class="speciality item"><span>Speciality: Default</span>
-                        <div class="icons-container">
-                            <i class="fas fa-eye-slash toggle-icon"></i>
-                            <i class="fas fa-plus"></i>
-                            <i class="fas fa-pencil-alt"></i>
-                            <i class="fas fa-trash"></i>
-                        </div>
-                    </div>
-                    <div class="section item"><span>Section: Gr A</span>
-                        <div class="icons-container">
-                            <i class="fas fa-eye-slash"></i>
-                            <i class="fas fa-plus"></i>
-                            <i class="fas fa-pencil-alt"></i>
-                            <i class="fas fa-trash"></i>
-                        </div>
-                    </div>
+                            @foreach ($speciality->sections as $section)
+                                <div class="section item">
+                                    <span>Section: {{ $section->name }}</span>
+                                    <div class="icons-container">
+                                        <i class="fas fa-eye-slash"></i>
+                                        <i class="fas fa-pencil-alt"></i>
+                                        <i class="fas fa-trash"></i>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endforeach
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                        <script>
+                            document.querySelectorAll('.add-specialty').forEach(function(icon) {
+                                icon.addEventListener('click', function() {
+                                    if (this.dataset.hasSpeciality === 'yes') {
+                                        Swal.fire({
+                                            icon: 'info',
+                                            title: 'Info',
+                                            text: 'For the levels in this cycle, only default specialities are allowed and your level has already the default speciality'
+                                        });
+                                    } else {
+                                        const levelId = this.getAttribute('data-level-id');
+                                        console.log(levelId);
+                                        // console.log('{{ $level->id }}');
+                                    }
+                                });
+                            });
+                        </script>
+                    @endforeach
 
-                    <div class="level item"><span>Level: 3rd Year</span>
-                        <div class="icons-container">
-                            <i class="fas fa-eye-slash toggle-icon"></i>
-                            <i class="fas fa-plus"></i>
-                            <i class="fas fa-pencil-alt"></i>
-                            <i class="fas fa-trash"></i>
-                        </div>
-                    </div>
-                    <div class="speciality item"><span>Speciality: Default</span>
-                        <div class="icons-container">
-                            <i class="fas fa-eye-slash toggle-icon"></i>
-                            <i class="fas fa-plus"></i>
-                            <i class="fas fa-pencil-alt"></i>
-                            <i class="fas fa-trash"></i>
-                        </div>
-                    </div>
-                    <div class="section item"><span>Section: Gr A</span>
-                        <div class="icons-container">
-                            <i class="fas fa-eye-slash"></i>
-                            <i class="fas fa-plus"></i>
-                            <i class="fas fa-pencil-alt"></i>
-                            <i class="fas fa-trash"></i>
-                        </div>
-                    </div>
+                    
 
 
 
@@ -544,7 +523,8 @@
                         </form>
                     `;
 
-                    button.closest('.item.cycle').parentNode.insertBefore(levelItem, button.closest('.item.cycle').nextSibling);
+                    button.closest('.item.cycle').parentNode.insertBefore(levelItem, button.closest(
+                        '.item.cycle').nextSibling);
 
                     const removeButton = levelItem.querySelector('.remove-button');
                     removeButton.addEventListener('click', function() {
@@ -557,18 +537,18 @@
                     //         const specialtyItem = document.createElement('div');
                     //         specialtyItem.classList.add('speciality', 'item');
                     //         specialtyItem.innerHTML = `
-                    //             <form action="">
-                    //                 <span>
-                    //                     <div class="input-container">
-                    //                         <input type="text" class="specialty-input" placeholder="Type specialty here">
-                    //                         <div class="icons-container">
-                    //                             <button type="submit" class="add-button"><i class="fas fa-check"></i></button>
-                    //                             <button type="button" class="remove-button"><i class="fas fa-times"></i></button>
-                    //                         </div>
-                    //                     </div>
-                    //                 </span>
-                    //             </form>
-                    //         `;
+                //             <form action="">
+                //                 <span>
+                //                     <div class="input-container">
+                //                         <input type="text" class="specialty-input" placeholder="Type specialty here">
+                //                         <div class="icons-container">
+                //                             <button type="submit" class="add-button"><i class="fas fa-check"></i></button>
+                //                             <button type="button" class="remove-button"><i class="fas fa-times"></i></button>
+                //                         </div>
+                //                     </div>
+                //                 </span>
+                //             </form>
+                //         `;
 
                     //         button.closest('.speciality.item').parentNode.insertBefore(specialtyItem, button.closest('.speciality.item').nextSibling);
 
@@ -583,16 +563,24 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-    const addSpecialtyButtons = document.querySelectorAll('.add-specialty');
+            const addSpecialtyButtons = document.querySelectorAll('.add-specialty');
 
-    addSpecialtyButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            const specialtyItem = document.createElement('div');
-            specialtyItem.classList.add('speciality', 'item');
-            specialtyItem.innerHTML = `
-                <form action="">
+            addSpecialtyButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const specialtyItem = document.createElement('div');
+                    specialtyItem.classList.add('speciality', 'item');
+                    // Get the level ID from the clicked button's data-level-id attribute
+                    const levelId = button.getAttribute('data-level-id');
+                    // const specialityId = button.getAttribute('data-speciality-id');
+                    console.log(levelId);
+
+                    specialtyItem.innerHTML = `
+                <form action="{{ route('storespeciality') }}" method="POST">
+                    @csrf
                     <span>
                         <div class="input-container">
+                            
+                        <input type="hidden" name="level_id" value="${levelId}">
                             <input type="text" class="specialty-input" placeholder="Type specialty here" name="name">
                             <div class="icons-container">
                                 <button type="submit" class="add-button"><i class="fas fa-check"></i></button>
@@ -603,17 +591,54 @@
                 </form>
             `;
 
-            // Insert the specialty item before the current button's parent (specialty container)
-            button.parentNode.insertBefore(specialtyItem, button);
+                    // Insert the specialty item before the current button's parent (specialty container)
+                    button.parentNode.insertBefore(specialtyItem, button);
 
-            const removeSpecButton = specialtyItem.querySelector('.remove-button');
-            removeSpecButton.addEventListener('click', function() {
-                specialtyItem.remove();
+                    const removeSpecButton = specialtyItem.querySelector('.remove-button');
+                    removeSpecButton.addEventListener('click', function() {
+                        specialtyItem.remove();
+                    });
+                });
             });
         });
-    });
-});
 
+        document.addEventListener('DOMContentLoaded', function() {
+            const addSectionButtons = document.querySelectorAll('.add-section');
+
+            addSectionButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const sectionItem = document.createElement('div');
+                    sectionItem.classList.add('section', 'item');
+                    
+                    const specialityId = button.getAttribute('data-speciality-id');
+                    console.log(specialityId);
+                    sectionItem.innerHTML = `
+                <form action="{{ route('storesections') }}" method="POST">
+                    @csrf
+                    <span>
+                        <div class="input-container">
+                            
+                        <input type="hidden" name="speciality_id" value="${specialityId}">
+                            <input type="text" class="specialty-input" placeholder="Type section name here" name="name">
+                            <div class="icons-container">
+                                <button type="submit" class="add-button"><i class="fas fa-check"></i></button>
+                                <button type="button" class="remove-button"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                    </span>
+                </form>
+            `;
+
+                   
+                    button.parentNode.insertBefore(sectionItem, button);
+
+                    const removeSpecButton = sectionItem.querySelector('.remove-button');
+                    removeSpecButton.addEventListener('click', function() {
+                        sectionItem.remove();
+                    });
+                });
+            });
+        });
     </script>
 
 </body>

@@ -22,20 +22,35 @@ class Level extends Model
         return $this->hasMany(LevelSectionSpeciality::class);
     }
     
-    public function specialities(){
-
-        return $this->belongsToMany(Speciality::class,
-            'level_section_speciality')
-            ->distinct('speciality_id')
-            ->whereNull('level_section_speciality.deleted_at');
+    public function specialities()
+    {
+        return $this->belongsToMany(Speciality::class, 'level_speciality')
+            ->distinct('speciality_id');
+    }
+    
+    public function sections(){
+        return $this->belongsToMany(Section::class, LevelSectionSpeciality::class)->whereNull('level_section_speciality.deleted_at');;
     }
 
-    public function getCompleteNameAttribute(){
+    public function levelSpecialities()
+{
+    return $this->belongsToMany(Speciality::class, 'level_speciality');
+}
+    
+    
+    public function getCompleteNameAttribute()
+    {
         return $this->name.' ('.$this->cycle->name.')';
     }
 
-    public function getSpecialitiesCountAttribute(){
+    public function getSpecialitiesCountAttribute()
+    {
         return $this->specialities;
     }
     
 }
+    
+
+   
+    
+

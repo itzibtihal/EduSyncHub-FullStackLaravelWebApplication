@@ -29,10 +29,22 @@ class Speciality extends Model
            
     }
 
-    public function sections(){
-        return $this->belongsToMany(Section::class,
-            LevelSectionSpeciality::class)->withPivot('level_id')
-            ->distinct('subject_id')
-            ->whereNull('level_section_speciality.deleted_at');
-    }
+    // public function sections(){
+    //     return $this->belongsToMany(Section::class,
+    //         LevelSectionSpeciality::class)->withPivot('level_id')
+    //         ->distinct('subject_id')
+    //         ->whereNull('level_section_speciality.deleted_at');
+    // }
+
+    public function sections()
+{
+    return $this->belongsToMany(Section::class, 'speciality_section');
+}
+
+
+public function specialities()
+{
+    return $this->belongsToMany(Section::class, 'speciality_section');
+}
+    
 }

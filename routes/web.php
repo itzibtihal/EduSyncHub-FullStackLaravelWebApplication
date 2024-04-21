@@ -64,6 +64,8 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::post('/professors/{professor}/delete', [ProfessorsController::class, 'destroy'])->name('professors.delete');
         Route::get('/organigram', [OrganigramController::class, 'index'])->name('director.organigram');
         Route::post('/organigram/add-level', [OrganigramController::class, 'storelevel'])->name('addlevel');
+        Route::post('/organigram/add-section', [OrganigramController::class, 'storesection'])->name('storesections');
+        Route::post('/organigram/add-speciality', [OrganigramController::class, 'storespeciality'])->name('storespeciality');
         Route::get('/classes', [ClassesController::class, 'index'])->name('director.classes');
         Route::get('/sectionstudents', [ClassesController::class, 'students'])->name('director.sectionstudents');
 

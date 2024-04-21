@@ -5,6 +5,7 @@ namespace App\Http\Controllers\v1\Director;
 use App\Http\Controllers\Controller;
 use App\Models\Cycle;
 use App\Models\Level;
+use App\Models\Section;
 use App\Models\Speciality;
 use Illuminate\Http\Request;
 
@@ -15,14 +16,16 @@ class OrganigramController extends Controller
         // $cyclesWithLevels = Cycle::with('levels')->get();
         // $cyclesWithLevelsAndSpecialities = Cycle::with('levels.specialities')->get();
 
-    // Fetch default speciality if cycle is not high school
-    // $defaultSpeciality = Speciality::where('name', 'Default')->first();
+        // Fetch default speciality if cycle is not high school
+        // $defaultSpeciality = Speciality::where('name', 'Default')->first();
 
-    // $cycles = Cycle::with(['levels', 'specialities'])->get();
+        // $cycles = Cycle::with(['levels', 'specialities'])->get();
 
  
         // return view('Director.organigram.index',compact('cycles'));
-        return view('Director.organigram.index');
+        $levels = Level::where('cycle_id', 1)->with('levelSpecialities.sections')->get();
+    
+        return view('Director.organigram.index',compact('levels'));
     }   
 
     public function storelevel(Request $request)
@@ -41,5 +44,45 @@ class OrganigramController extends Controller
         $level->save();
 
         return redirect()->route('director.organigram')->with('success', 'Level stored successfully.');
+    }
+
+    public function storespeciality(Request $request)
+    {
+        $validatedData = $request->validate([
+            'level_id' => 'required|exists:levels,id',
+            'name' => 'required|string',
+        ]);
+
+        $level = Level::findOrFail($validatedData['level_id']);
+        $specialityName = $validatedData['name'] . '(' . $level->name . ')';
+
+        $speciality = new Speciality();
+        $speciality->name = $specialityName;
+        // dd($speciality);
+        $speciality->save();
+
+        $level->levelSpecialities()->attach($speciality->id);
+
+        return redirect()->route('director.organigram')->with('success', 'Speciality stored successfully.');
+    }
+
+    public function storesection(Request $request)
+    {
+        $validatedData = $request->validate([
+            'speciality_id' => 'required|exists:specialities,id',
+            'name' => 'required|string',
+        ]);
+
+        $speciality = Speciality::findOrFail($validatedData['speciality_id']);
+        $sectionName = $validatedData['name'] . '(' . $speciality->name . ')';
+
+        $newSection = new Section();
+        $newSection->name = $sectionName;
+        // dd($newSection);
+        $newSection->save();
+
+        $speciality->specialities()->attach($newSection->id);
+
+        return redirect()->route('director.organigram')->with('success', 'Section stored successfully.');
     }
 }
