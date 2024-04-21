@@ -97,6 +97,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
@@ -104,10 +105,16 @@
     <div class="container-fluid px-1 py-5 mx-auto">
         <div class="row d-flex justify-content-center">
             <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
-                <div class="card">
+                <div class="card" style="border-radius: 30px">
 
 
-                    <form class="form-card" action="" method="post" enctype="multipart/form-data">
+                    <form class="form-card" action="{{ route('students.store') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+
+                        <input type="hidden" name="role_id" value="3">
+<input type="hidden" name="isActive" value="1">
+                        
+
 
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
@@ -117,13 +124,13 @@
                             </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
                                     class="form-control-label px-3">Last Name<span class="text-danger"> *</span></label>
-                                <input type="number" name="lastname">
+                                <input type="text" name="lastname">
                             </div>
                         </div>
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
                                     class="form-control-label px-3">Email<span class="text-danger"> *</span></label>
-                                <input type="text" name="firstname">
+                                <input type="text" name="email">
                             </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
                                     class="form-control-label px-3">Phone :<span class="text-danger">
@@ -137,30 +144,30 @@
 
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
-                                    class="form-control-label px-3">Parent Full Name<span class="text-danger">
-                                        *</span></label> <input type="text" name="pfullname" placeholder=""> </div>
+                                    class="form-control-label px-3">Date of birth<span class="text-danger">
+                                        *</span></label> <input type="date" name="dateofbirth" placeholder=""> </div>
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label class="form-control-label px-3">Status<span class="text-danger"> *</span></label>
                                 <select name="status" class="form-control">
-                                    <option value="1">Pending</option>
-                                    <option value="2">Approved</option>
-                                    <option value="3">Declined</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="approved">Approved</option>
+                                    <option value="rejected">Rejected</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
-                                    class="form-control-label px-3">Parent Email<span class="text-danger">
+                                    class="form-control-label px-3">Address<span class="text-danger">
                                         *</span></label>
-                                <input type="text" name="pemail">
+                                <input type="text" name="address">
                             </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label
-                                    class="form-control-label px-3">Parent Phone  :<span class="text-danger">
+                                    class="form-control-label px-3">Monthly amount  :<span class="text-danger">
                                         *</span></label>
-                                <input type="tel" id="phone" name="pphone"
+                                <input type="number" id="phone" name="monthly_amount"
                                 
-                                    placeholder="+212 XXX XX XX XX">
+                                   >
                             </div>
                         </div>
 
@@ -168,39 +175,54 @@
                             <div class="form-group col-12 flex-column d-flex">
                                 <!-- Select a school cycle -->
                                 
-                                <select name="school_cycle" id="school_cycle" style="width: 60%;margin-left: 0px;"  class="custom-select">
+                                <select  id="school_cycle" style="width: 60%;margin-left: 0px;" class="custom-select">
                                     <option value="">Select a school cycle</option>
-                                    <option value="Primary">Primary</option>
-                                    <option value="Secondary">Secondary</option>
-                                    <option value="Higher Education">Higher Education</option>
+                                    @foreach($cycles as $schoolCycle)
+                                        <option value="{{ $schoolCycle->id }}">{{ $schoolCycle->name }}</option>
+                                    @endforeach
                                 </select>
 
                                 <!-- Select a level -->
                                 <div class="select-container" style="width: 60%;margin-top: 4px;">
                                     <i class="fas fa-caret-down"></i>
-                                    <select name="speciality" id="speciality" class="custom-select">
+                                    <select  id="speciality" class="custom-select">
                                         <option value="">Select the level</option>
-                                     </select>
+                                        @foreach($levels as $level)
+                                            <option value="{{ $level->id }}">{{ $level->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <!-- Select the speciality -->
                                 <div class="select-container" style="margin-left: 80px; width: 60%;margin-top: 4px;">
                                     <i class="fas fa-caret-down"></i>
-                                    <select name="speciality" id="speciality" class="custom-select">
+                                    <select  id="speciality" class="custom-select">
                                         <option value="">Select the speciality</option>
+                                        @foreach($specialities as $speciality)
+                                            <option value="{{ $speciality->id }}">{{ $speciality->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
                                 <!-- Select section -->
                                 <div class="select-container" style="margin-left: 120px;  width: 60%;margin-top: 4px;">
                                     <i class="fas fa-caret-down"></i>
-                                    <select name="section" id="section" class="custom-select">
+                                    <select name="section_id" id="section" class="custom-select">
                                         <option value="">Select section</option>
-                                        
+                                        @foreach($sections as $section)
+                                            <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
                             </div>
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+                            <script>
+                            $(document).ready(function() {
+                                $('#section').select2();
+                            });
+                            </script>
                             <script>
                                 document.getElementById('school_cycle').addEventListener('change', function () {
                                     var school_cycle = this.value;
@@ -229,7 +251,7 @@
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-12 flex-column d-flex"> <label
                                     class="form-control-label px-3">Profile picture<span class="text-danger">
-                                        *</span></label> <input type="file" name="image" placeholder=""> </div>
+                                        *</span></label> <input type="file" name="avatar" placeholder=""> </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="form-group col-sm-6"> <button type="submit" class="btn-block "
