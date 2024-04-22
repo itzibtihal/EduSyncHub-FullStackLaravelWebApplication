@@ -5,6 +5,7 @@ namespace App\Http\Controllers\v1\Director;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateStudentRequest;
 use App\Models\Cycle;
+use App\Models\Discipline;
 use App\Models\Level;
 use App\Models\Section;
 use App\Models\Speciality;
@@ -61,6 +62,13 @@ class StudentsController extends Controller
         // Attach the student to the section
         $section = Section::findOrFail($validatedData['section_id']);
         $section->users()->attach($student->id, ['academicyear_id' => 1]); // Assuming academic year ID is 1
+
+        // Save the user_id to the discipline table
+        $discipline = new Discipline();
+        $discipline->user_id = $student->id;
+        $discipline->note = 'Doesn\'t have a note yet';
+        $discipline->discipline = 0;
+        $discipline->save();
 
         return redirect()->route('director.students')->with('success', 'Student stored successfully.');
     }

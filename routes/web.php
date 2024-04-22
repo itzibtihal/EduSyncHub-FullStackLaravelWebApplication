@@ -52,8 +52,8 @@ Route::middleware(['custom.auth'])->group(function () {
     Route::prefix('director')->group(function () {
 
         Route::get('/dashboard', [DirectorController::class, 'dashboard'])
-   
-    ->name('director.dashboard');
+
+            ->name('director.dashboard');
 
         Route::get('/students', [DirectorController::class, 'students'])->name('director.students');
         // Route::get('/institutions', [InstitutionsController::class, 'index'])->name('director.institutions');
@@ -62,9 +62,9 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::post('/students/store', [StudentsController::class, 'store'])->name('students.store');
         Route::get('/students/{student}/edit', [StudentsController::class, 'edit'])->name('students.edit');
 
-// Route for the delete action
-Route::delete('/students/{student}', [StudentsController::class, 'destroy'])->name('students.delete');
-Route::put('/students/{student}', [StudentsController::class, 'update'])->name('students.update');
+        // Route for the delete action
+        Route::delete('/students/{student}', [StudentsController::class, 'destroy'])->name('students.delete');
+        Route::put('/students/{student}', [StudentsController::class, 'update'])->name('students.update');
 
 
         Route::get('/professors', [DirectorController::class, 'professors'])->name('director.professors');
@@ -102,8 +102,6 @@ Route::put('/students/{student}', [StudentsController::class, 'update'])->name('
         Route::post('/absence/{absence}/update', [DAbsenceController::class, 'update'])->name('director.absence.update');
         Route::get('/get-users-in-section', [DAbsenceController::class, 'getUsersInSection'])->name('getUsersInSection');
         Route::delete('/absence/{exam}/delete', [DAbsenceController::class, 'destroy'])->name('director.absence.delete');
-
-        
     });
 
     Route::prefix('professor')->group(function () {
@@ -154,4 +152,3 @@ Route::put('/students/{student}', [StudentsController::class, 'update'])->name('
 
 Route::get('/student-details/{id}', [ClassesController::class, 'getStudentDetails']);
 Route::post('/store-discipline', [ClassesController::class, 'storeDiscipline'])->name('discipline.store');
-
