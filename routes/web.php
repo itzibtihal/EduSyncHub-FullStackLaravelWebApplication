@@ -78,8 +78,7 @@ Route::put('/students/{student}', [StudentsController::class, 'update'])->name('
         Route::post('/organigram/add-section', [OrganigramController::class, 'storesection'])->name('storesections');
         Route::post('/organigram/add-speciality', [OrganigramController::class, 'storespeciality'])->name('storespeciality');
         Route::get('/classes', [ClassesController::class, 'index'])->name('director.classes');
-        Route::get('/sectionstudents', [ClassesController::class, 'students'])->name('director.sectionstudents');
-
+        Route::get('/sectionstudents/{section}', [ClassesController::class, 'students'])->name('director.sectionstudents');
         Route::get('/exams', [ExamsController::class, 'index'])->name('director.exams');
         Route::get('/exams/create', [ExamsController::class, 'create'])->name('director.exams.create');
         Route::post('/exams/store', [ExamsController::class, 'store'])->name('director.exams.store');
@@ -151,3 +150,8 @@ Route::put('/students/{student}', [StudentsController::class, 'update'])->name('
         })->name('student.dashboard');
     });
 });
+
+
+Route::get('/student-details/{id}', [ClassesController::class, 'getStudentDetails']);
+Route::post('/store-discipline', [ClassesController::class, 'storeDiscipline'])->name('discipline.store');
+

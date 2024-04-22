@@ -5,6 +5,8 @@ namespace App\Http\Controllers\v1\Director;
 use App\Http\Controllers\Controller;
 use App\Models\Cycle;
 use App\Models\Level;
+use App\Models\LevelSectionSpeciality;
+use App\Models\LevelSpeciality;
 use App\Models\Section;
 use App\Models\Speciality;
 use Illuminate\Http\Request;
@@ -82,6 +84,18 @@ class OrganigramController extends Controller
         $newSection->save();
 
         $speciality->specialities()->attach($newSection->id);
+
+        $levelSpeciality = LevelSpeciality::where('speciality_id', $speciality->id)->first();
+        $level_id = $levelSpeciality->level_id;
+        $level = Level::findOrFail($level_id);
+        $cycle_id = $level->cycle_id;
+        
+        $section = LevelSectionSpeciality::create([
+            'level_id' => $level_id,
+            'cycle_id' => $cycle_id,
+            'speciality_id' => $speciality->id,
+            'section_id' => $newSection->id,
+        ]);
 
         return redirect()->route('director.organigram')->with('success', 'Section stored successfully.');
     }

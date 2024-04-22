@@ -41,6 +41,10 @@ class Speciality extends Model
     return $this->belongsToMany(Section::class, 'speciality_section');
 }
 
+public function sectionss()
+{
+    return $this->hasMany(Section::class);
+}
 
 public function specialities()
 {

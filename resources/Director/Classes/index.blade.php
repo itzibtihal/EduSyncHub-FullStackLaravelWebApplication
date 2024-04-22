@@ -237,7 +237,8 @@
 
                 </a>
 
-                <a href="{{ route('director.classes') }}" class="{{ request()->routeIs('director.classes') ? 'active' : '' }}">
+                <a href="{{ route('director.classes') }}"
+                    class="{{ request()->routeIs('director.classes') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         school
                     </span>
@@ -245,7 +246,8 @@
                 </a>
 
 
-                <a href="{{ route('director.exams') }}" class="{{ request()->routeIs('director.exams') ? 'active' : '' }}">
+                <a href="{{ route('director.exams') }}"
+                    class="{{ request()->routeIs('director.exams') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         inventory
                     </span>
@@ -254,14 +256,16 @@
 
 
 
-                <a href="{{ route('director.absence') }}" class="{{ request()->routeIs('director.absence') ? 'active' : '' }}">
+                <a href="{{ route('director.absence') }}"
+                    class="{{ request()->routeIs('director.absence') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         crisis_alert
                     </span>
                     <h3>Absence</h3>
                 </a>
-  
-                <a href="{{ route('timesheet.index') }}" class="{{ request()->routeIs('timesheet.index') ? 'active' : '' }}">
+
+                <a href="{{ route('timesheet.index') }}"
+                    class="{{ request()->routeIs('timesheet.index') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         report_gmailerrorred
                     </span>
@@ -269,15 +273,17 @@
                 </a>
 
 
-                <a href="{{ route('director.holidays') }}" class="{{ request()->routeIs('director.holidays') ? 'active' : '' }}">
+                <a href="{{ route('director.holidays') }}"
+                    class="{{ request()->routeIs('director.holidays') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         travel_explore
                     </span>
                     <h3>Holidays</h3>
                 </a>
-               
 
-                <a href="{{ route('director.reminders') }}" class="{{ request()->routeIs('director.reminders') ? 'active' : '' }}">
+
+                <a href="{{ route('director.reminders') }}"
+                    class="{{ request()->routeIs('director.reminders') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         notifications_active
                     </span>
@@ -327,44 +333,44 @@
 
             @foreach ($specialities as $speciality)
                 <div class="custom-div middle-school">
-                    Level: {{ $speciality->level_id }}th year (Middle)
+                    Level: {{ $speciality->level->name }}
                 </div>
 
                 <div class="container2 middle-school">
                     @if ($speciality->section)
-                        @foreach ($speciality->section as $section)
-                            <div class="card middle-school">
-                                <div class="card-header">
-                                    Section: {{ $speciality->getSpecialityName() }} ({{ $speciality->level_id }}th
-                                    year Middle)
+                        {{-- @foreach ($speciality->section as $section) --}}
+                        <div class="card middle-school">
+                            <div class="card-header">
+                                Section: {{ $speciality->section->name }}
+
+                            </div>
+                            <div class="card-body">
+                                <div class="section-details">
+                                    <div class="info2">
+                                        <div class="icon2">
+                                            <img src="{{ asset('assets/images/class.png') }}" alt="Students Icon">
+                                        </div>
+                                        <div class="text">
+                                            Students: {{ $speciality->section->users->count() }}
+                                        </div>
+                                    </div>
+                                    <div class="specialty">
+                                        Specialty: {{ $speciality->speciality->name }}
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <div class="section-details">
-                                        <div class="info2">
-                                            <div class="icon2">
-                                                <img src="{{ asset('assets/images/class.png') }}" alt="Students Icon">
-                                            </div>
-                                            <div class="text">
-                                                Students
-                                            </div>
-                                        </div>
-                                        <div class="specialty">
-                                            Specialty: {{ $speciality->getSpecialityName() }}
-                                        </div>
-                                    </div>
-                                    <div class="actions">
-                                        <button class="btn coursesBtn">
-                                            <span class="material-icons-sharp">auto_stories</span>
-                                            Courses
-                                        </button>
-                                        <button class="btn studentsBtn">
-                                            <span class="material-icons-sharp">group</span>
-                                            Students
-                                        </button>
-                                    </div>
+                                <div class="actions">
+                                    <button class="btn coursesBtn">
+                                        <span class="material-icons-sharp">auto_stories</span>
+                                        Courses
+                                    </button>
+                                    <button class="btn studentsBtn" data-section-id="{{ $speciality->section->id }}">
+                                        <span class="material-icons-sharp">group</span>
+                                        Students
+                                    </button>
                                 </div>
                             </div>
-                        @endforeach
+                        </div>
+                        {{-- @endforeach --}}
                     @else
                         <div class="card middle-school">
                             <div class="card-body">
@@ -379,9 +385,58 @@
 
             <!-- ************************************************* high school *************************************************-->
 
+            @foreach ($specialitieshigh as $specialityhigh)
+                <div class="custom-div high-school">
+                    Level: {{ $specialityhigh->level->name }}
+                </div>
 
+                <div class="container2 high-school">
+                    @if ($specialityhigh->section)
+                        {{-- @foreach ($speciality->section as $section) --}}
+                        <div class="card high-school">
+                            <div class="card-header">
+                                Section: {{ $specialityhigh->section->name }}
 
-            <div class="custom-div high-school" style="display: none;">
+                            </div>
+                            <div class="card-body">
+                                <div class="section-details">
+                                    <div class="info2">
+                                        <div class="icon2">
+                                            <img src="{{ asset('assets/images/class.png') }}" alt="Students Icon">
+                                        </div>
+                                        <div class="text">
+                                            Students
+                                        </div>
+                                    </div>
+                                    <div class="specialty">
+                                        Specialty: {{ $specialityhigh->speciality->name }}
+                                    </div>
+                                </div>
+                                <div class="actions">
+                                    <button class="btn coursesBtn">
+                                        <span class="material-icons-sharp">auto_stories</span>
+                                        Courses
+                                    </button>
+                                    <button class="btn studentsBtn"
+                                        data-section-id="{{ $specialityhigh->section->id }}">
+                                        <span class="material-icons-sharp">group</span>
+                                        Students
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- @endforeach --}}
+                    @else
+                        <div class="card high-school">
+                            <div class="card-body">
+                                No sections found for this speciality.
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            @endforeach
+
+            {{-- <div class="custom-div high-school" style="display: none;">
                 Level: 1st year (high school)
             </div>
 
@@ -595,10 +650,10 @@
                 </div>
 
                 <!-- Repeat the card structure for other sections -->
-            </div>
+            </div> --}}
 
 
-            <div class="custom-div high-school" style="display: none;">
+            {{-- <div class="custom-div high-school" style="display: none;">
                 Level: 3rd year (high school)
             </div>
 
@@ -645,7 +700,9 @@
 
 
                 <!-- Repeat the card structure for other sections -->
-            </div>
+            </div> --}}
+
+
 
 
 
@@ -794,11 +851,19 @@
 
 
         // Get all elements with the class "studentsBtn"
+        // var studentsButtons = document.getElementsByClassName("studentsBtn");
+        // for (var i = 0; i < studentsButtons.length; i++) {
+        //     studentsButtons[i].addEventListener("click", function() {
+        //         window.location.href =
+        //         ""; // Assuming 'sectioncourses' is the name of your route
+        //     });
+        // }
+
         var studentsButtons = document.getElementsByClassName("studentsBtn");
         for (var i = 0; i < studentsButtons.length; i++) {
             studentsButtons[i].addEventListener("click", function() {
-                window.location.href =
-                "{{ route('director.sectionstudents') }}"; // Assuming 'sectioncourses' is the name of your route
+                var sectionId = this.getAttribute('data-section-id');
+                window.location.href = "{{ url('director/sectionstudents') }}/" + sectionId;
             });
         }
 
