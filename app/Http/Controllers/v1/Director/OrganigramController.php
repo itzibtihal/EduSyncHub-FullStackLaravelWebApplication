@@ -26,8 +26,9 @@ class OrganigramController extends Controller
  
         // return view('Director.organigram.index',compact('cycles'));
         $levels = Level::where('cycle_id', 1)->with('levelSpecialities.sections')->get();
+        $hlevels = Level::where('cycle_id', 2)->with('levelSpecialities.sections')->get();
     
-        return view('Director.organigram.index',compact('levels'));
+        return view('Director.organigram.index',compact('levels','hlevels'));
     }   
 
     public function storelevel(Request $request)

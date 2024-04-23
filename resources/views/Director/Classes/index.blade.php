@@ -405,7 +405,7 @@
                                             <img src="{{ asset('assets/images/class.png') }}" alt="Students Icon">
                                         </div>
                                         <div class="text">
-                                            Students
+                                            Students : {{ $specialityhigh->section->users->count() }}
                                         </div>
                                     </div>
                                     <div class="specialty">

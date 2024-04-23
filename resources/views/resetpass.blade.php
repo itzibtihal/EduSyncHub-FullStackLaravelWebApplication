@@ -1,59 +1,41 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>EduSyncHub | Login</title>
+	<title>EduSyncHub | Forgot password</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/login.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
 <body>
-    <img class="wave" src="assets/img/waveblue.png">
-    <div class="container">
-        <div class="img">
-            <img src="assets/img/edusync.svg">
-        </div>
-        <div class="login-content">
-            <form id="loginForm" action="{{ route('login') }}" method="POST">
+	<img class="wave" src="assets/img/waveblue.png">
+	<div class="container">
+		<div class="img">
+			<img src="assets/img/edusync.svg">
+		</div>
+		<div class="login-content">
+			<form method="POST" action="{{route('forgot-password.post')}}">
                 @csrf
-
-                <img src="assets/img/uvatar.svg">
-                <h2 class="title">Welcome</h2>
-                <div class="input-div one">
-                    <div class="i">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="div">
-                        <h5>Username</h5>
-                        <input id="usernameInput" type="text" class="input" name="email">
-                        @error('email')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-
-                    </div>
-                </div>
-                <div class="input-div pass">
-                    <div class="i">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <div class="div">
-                        <h5>Password</h5>
-                        <input id="passwordInput" type="password" class="input" name="password">
-                        @error('password')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-
-                    </div>
-                </div>
-                <a href="{{route('forgot-password')}}">Forgot Password?</a>
-                <input type="submit" class="btn" value="Login">
+				<img src="assets/img/uvatar.svg">
+				<h2 class="title">Forgot your password ?</h2>
+                <p>We take care of it! Enter your email address
+                    We will send you a link to change your password</p>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>email</h5>
+           		   		<input type="text" class="input" name="email" value="{{ old('email') }}">
+           		   </div>
+           		</div>
+           		
+            	<a href="#">Back to the authentication page</a>
+            	{{-- <input type="submit" class="btn" value="Send"> --}}
+                <input type="submit" class="btn btn-soft-primary w-100" value="{{ __('Email Password Reset Link') }}">
             </form>
         </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('loginForm');
@@ -115,5 +97,4 @@
         });
     </script>
 </body>
-
 </html>

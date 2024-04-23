@@ -5,6 +5,7 @@ use App\Http\Controllers\v1\Director\DirectorController;
 use App\Http\Controllers\v1\Professor\ProfessorController as ProController;
 use App\Http\Controllers\v1\Student\StudentController;
 use App\Helpers\RoleHelper;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\TimesheetController;
 use App\Http\Controllers\v1\Director\ClassesController;
@@ -39,10 +40,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.get');
+Route::get('/forgot-password', [AuthController::class, 'resetPassword'])->name('forgot-password');
+
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password.post');
+
+Route::get('/reset-password', [ResetPasswordController::class, 'showResetForm'])->name('showResetForm');
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 
 // Route::middleware(['custom.auth', 'check.director'])->get('/director/dashboard', [DirectorController::class, 'dashboard'])->name('director.dashboard');
 // Route::middleware(['custom.auth'])->get('/dashboard', [DirectorController::class, 'dashboard'])->name('dashboard');

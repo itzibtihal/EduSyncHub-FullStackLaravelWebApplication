@@ -4,8 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use App\Mail\ResetPassword;
 
 class AuthController extends Controller
 {
@@ -90,7 +95,99 @@ class AuthController extends Controller
     }
 
     public function showLoginForm()
-{
-    return view('welcome');
-}
+    {
+        return view('welcome');
+    }
+
+    
+    public function resetPassword()
+    {
+        return view('resetpass');
+    }
+
+     
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+    
+        $user = User::where('email', $request->email)->first();
+    
+        if (!$user) {
+            return redirect()->back()->with('error', 'Email not found')->withErrors(['email' => 'Email not found']);
+        }
+
+        $email = $user->email;
+        $token = Str::random(60);
+
+        if ($user->remember_token) {
+            $user->update(['remember_token' => null]);
+        }
+
+        $user->remember_token = $token;
+        $user->save();
+
+        
+    
+        Mail::to($user->email)->send(new ResetPassword($token, $email));
+    
+        return redirect()->back()->with('success', 'Password reset link sent to your email');
+    }
+
+
+   
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // public function resetPasswordPost(Request $request)
+    // {
+    //     $request->validate([
+    //         'email' => 'required|email|exists:users,email',
+    //     ]);
+
+    //     // $token = Str::random(64);
+
+    //     // DB::table('password_resets')->insert([
+    //     //     'email' => $request->email,
+    //     //     'token' => $token,
+    //     //     'created_at' => Carbon::now(),
+    //     // ]);
+
+    //     // Mail::to($request->email)->send(new ResetPassword(['token' => $token]));
+
+    //     return back()->with('message', 'We have e-mailed your password reset link!');
+    // }
 }

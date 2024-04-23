@@ -326,7 +326,7 @@
 
 
 
-
+                 {{------------------ organigrame for high-school cycle ----------------------}}
 
 
 
@@ -337,11 +337,65 @@
                         <input type="hidden" name="cycle_id" value="2">
                         <div class="icons-container">
                             <i class="fas fa-eye-slash toggle-icon "></i>
-                            <i class="fas fa-plus add-button"></i>
+                            <i class="fas fa-plus add-Hbutton"></i>
                             <i class="fas fa-pencil-alt"></i>
                             <i class="fas fa-trash"></i>
                         </div>
                     </div>
+
+                    @foreach ($hlevels as $hlevel)
+                        <div class="level item"><span>Level: {{ $hlevel->name }}</span>
+                            <div class="icons-container">
+                                <i class="fas fa-eye-slash toggle-icon "></i>
+                                <i class="fas fa-plus add-hspecialty" data-level-id="{{ $hlevel->id }}"
+                                    data-has-speciality="{{ $hlevel->specialities()->exists() ? 'yes' : 'no' }}"></i>
+                                <i class="fas fa-pencil-alt"></i>
+                                <i class="fas fa-trash"></i>
+                            </div>
+                        </div>
+                         @foreach ($hlevel->levelSpecialities as $speciality)
+                            <div class="speciality item">
+                                <span>Speciality: {{ $speciality->name }}</span>
+                                <div class="icons-container">
+                                    <i class="fas fa-eye-slash toggle-icon"></i>
+                                    <i class="fas fa-plus add-section" data-speciality-id="{{ $speciality->id }}"></i>
+                                    <i class="fas fa-pencil-alt"></i>
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                            </div>
+
+                            @foreach ($speciality->sections as $section)
+                                <div class="section item">
+                                    <span>Section: {{ $section->name }}</span>
+                                    <div class="icons-container">
+                                        <i class="fas fa-eye-slash"></i>
+                                        <i class="fas fa-pencil-alt"></i>
+                                        <i class="fas fa-trash"></i>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endforeach 
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                        <script>
+                            document.querySelectorAll('.add-hspecialty').forEach(function(icon) {
+                                icon.addEventListener('click', function() {
+                                    if (this.dataset.hasSpeciality === 'yes') {
+                                        Swal.fire({
+                                            icon: 'info',
+                                            title: 'Info',
+                                            text: 'Add new speciality for this level ?'
+                                        });
+                                    } else {
+                                        const levelId = this.getAttribute('data-level-id');
+                                        console.log(levelId);
+                                        // console.log('{{ $level->id }}');
+                                    }
+                                });
+                            });
+                        </script>
+                    @endforeach
+
+
                 </div>
             </div>
 
@@ -635,6 +689,121 @@
                     const removeSpecButton = sectionItem.querySelector('.remove-button');
                     removeSpecButton.addEventListener('click', function() {
                         sectionItem.remove();
+                    });
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const addHButtons = document.querySelectorAll('.add-hbutton');
+            const addSpecButtons = document.querySelectorAll('.add-specialty');
+
+            addHButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const levelItem = document.createElement('div');
+                    levelItem.classList.add('level', 'item');
+                    levelItem.innerHTML = `
+                    
+                        <form action="{{ route('addlevel') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="cycle_id" value="2">
+                            <span>
+                                <div class="input-container">
+                                    <input type="text" class="level-input" name="name" placeholder="Type level name here">
+                                    <div class="icons-container">
+                                        <button type="submit" class="add-button"><i class="fas fa-check"></i></button>
+                                        <button type="button" class="remove-button"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </span>
+                        </form>
+                    `;
+
+                    button.closest('.item.cycle').parentNode.insertBefore(levelItem, button.closest(
+                        '.item.cycle').nextSibling);
+
+                    const removeButton = levelItem.querySelector('.remove-button');
+                    removeButton.addEventListener('click', function() {
+                        levelItem.remove();
+                    });
+
+                 
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const addHButtons = document.querySelectorAll('.add-Hbutton');
+            const addSpecButtons = document.querySelectorAll('.add-specialty');
+
+            addHButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const levelItem = document.createElement('div');
+                    levelItem.classList.add('level', 'item');
+                    levelItem.innerHTML = `
+                    
+                        <form action="{{ route('addlevel') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="cycle_id" value="2">
+                            <span>
+                                <div class="input-container">
+                                    <input type="text" class="level-input" name="name" placeholder="Type level name here">
+                                    <div class="icons-container">
+                                        <button type="submit" class="add-button"><i class="fas fa-check"></i></button>
+                                        <button type="button" class="remove-button"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </span>
+                        </form>
+                    `;
+
+                    button.closest('.item.cycle').parentNode.insertBefore(levelItem, button.closest(
+                        '.item.cycle').nextSibling);
+
+                    const removeButton = levelItem.querySelector('.remove-button');
+                    removeButton.addEventListener('click', function() {
+                        levelItem.remove();
+                    });
+
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const addhSpecialtyButtons = document.querySelectorAll('.add-hspecialty');
+
+            addhSpecialtyButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const specialtyItem = document.createElement('div');
+                    specialtyItem.classList.add('speciality', 'item');
+                    // Get the level ID from the clicked button's data-level-id attribute
+                    const levelId = button.getAttribute('data-level-id');
+                    // const specialityId = button.getAttribute('data-speciality-id');
+                    console.log(levelId);
+
+                    specialtyItem.innerHTML = `
+                <form action="{{ route('storespeciality') }}" method="POST">
+                    @csrf
+                    <span>
+                        <div class="input-container">
+                            
+                        <input type="hidden" name="level_id" value="${levelId}">
+                            <input type="text" class="specialty-input" placeholder="Type specialty here" name="name">
+                            <div class="icons-container">
+                                <button type="submit" class="add-button"><i class="fas fa-check"></i></button>
+                                <button type="button" class="remove-button"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                    </span>
+                </form>
+            `;
+
+                    // Insert the specialty item before the current button's parent (specialty container)
+                    button.parentNode.insertBefore(specialtyItem, button);
+
+                    const removeSpecButton = specialtyItem.querySelector('.remove-button');
+                    removeSpecButton.addEventListener('click', function() {
+                        specialtyItem.remove();
                     });
                 });
             });

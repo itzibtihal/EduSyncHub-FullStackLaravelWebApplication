@@ -80,7 +80,7 @@
                             <th>title</th>
                             <th>Date</th>
                             <th>Duration</th>
-                            <th>Status</th>
+                            <th>Teacher</th>
                             <th></th>
                         </tr>
                     </thead>
