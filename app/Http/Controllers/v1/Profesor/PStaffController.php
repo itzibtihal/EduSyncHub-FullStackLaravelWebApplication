@@ -15,6 +15,14 @@ class PStaffController extends Controller
         ->leftJoin('institutions', 'user_institution.institution_id', '=', 'institutions.id')
         ->select('users.*', 'institutions.name as institution_name')
         ->get();
+
+        // SELECT users.*, institutions.name AS institution_name
+        // FROM users
+        // LEFT JOIN user_institution ON users.id = user_institution.user_id
+        // LEFT JOIN institutions ON user_institution.institution_id = institutions.id
+        // WHERE users.role_id = 2;
+
         return view('teacher.staff.index' , compact('users'));
     }
 }
+ 

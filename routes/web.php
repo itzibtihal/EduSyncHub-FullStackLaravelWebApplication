@@ -106,7 +106,8 @@ Route::middleware(['custom.auth'])->group(function () {
         Route::get('/absence/{absence}/edit', [DAbsenceController::class, 'edit'])->name('director.absence.edit');
         Route::post('/absence/{absence}/update', [DAbsenceController::class, 'update'])->name('director.absence.update');
         Route::get('/get-users-in-section', [DAbsenceController::class, 'getUsersInSection'])->name('getUsersInSection');
-        Route::delete('/absence/{exam}/delete', [DAbsenceController::class, 'destroy'])->name('director.absence.delete');
+        Route::delete('/absence/{absence}/delete', [DAbsenceController::class, 'destroy'])->name('director.absence.delete');
+
     });
 
     Route::prefix('professor')->group(function () {

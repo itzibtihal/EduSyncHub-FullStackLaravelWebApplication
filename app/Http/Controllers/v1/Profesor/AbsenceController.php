@@ -21,6 +21,12 @@ class AbsenceController extends Controller
                         ->orWhereDate('created_at', $today)
                         ->get(); 
 
+                        // SELECT * 
+                        // FROM absences
+                        // WHERE DATE(starts_at) = '2024-04-28'
+                        //    OR DATE(created_at) = '2024-04-28';
+                        
+
 
     return view('teacher.absence.index', compact('absences')); 
 }
@@ -70,6 +76,15 @@ class AbsenceController extends Controller
         $users = User::whereHas('sections', function ($query) use ($request) {
             $query->where('section_id', $request->section_id);
         })->get();
+        // SELECT *
+        // FROM users
+        // WHERE EXISTS (
+        //     SELECT *
+        //     FROM section_user su
+        //     WHERE su.user_id = users.id
+        //     AND su.section_id = 11
+        // );
+
 
         return response()->json($users);
     }

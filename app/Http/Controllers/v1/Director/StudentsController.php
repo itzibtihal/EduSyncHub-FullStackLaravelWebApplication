@@ -115,7 +115,7 @@ class StudentsController extends Controller
         // Update the sections
         $sections = Section::findMany($validatedData['section_id']);
         foreach ($sections as $section) {
-            $section->users()->syncWithoutDetaching([$student->id => ['academicyear_id' => 1]]); // Assuming academic year ID is 1
+            $section->users()->syncWithoutDetaching([$student->id => ['academicyear_id' => 1]]); 
         }
     
         return redirect()->route('director.students')->with('success', 'Student updated successfully.');

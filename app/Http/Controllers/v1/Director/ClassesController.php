@@ -21,12 +21,9 @@ class ClassesController extends Controller
 
 
         //  dd($specialities);
-        // Iterate over each LevelSectionSpeciality object
         // foreach ($specialities as $speciality) {
-        //     // Access the sections related to the current speciality
         //     $sections = $speciality->section->pluck('name');
 
-        //     // Output the sections using dd
         //     //  dd($sections);
         // }
         $sections = Section::all();
@@ -36,6 +33,10 @@ class ClassesController extends Controller
     public function students($section)
 {
     $section = Section::with(['users', 'users.disciplines'])->find($section);
+//     SELECT d.note , d.discipline ,u.firstname , u.lastname FROM disciplines d
+// JOIN users u ON d.user_id = u.id
+// JOIN section_user us ON u.id = us.user_id
+// WHERE us.section_id = 11;
 
     if (!$section) {
         return redirect()->back()->with('error', 'Section not found.');
@@ -61,6 +62,10 @@ class ClassesController extends Controller
             $student->justified_absences = Absence::where('user_id', $id)
                 ->where('reason', 'justified')
                 ->count();
+                // SELECT COUNT(*) AS justified_absences FROM absences
+                // WHERE user_id = $id
+                // AND reason = 'justified';
+
     
             // Count the number of unjustified absences
             $student->unjustified_absences = Absence::where('user_id', $id)
@@ -68,6 +73,11 @@ class ClassesController extends Controller
                 ->count();
             
             $discipline = Discipline::where('user_id', $id)->latest()->first();
+            // SELECT * FROM disciplines
+            // WHERE user_id = 14
+            // ORDER BY created_at DESC
+            // LIMIT 1;
+            
                 if ($discipline) {
                     $student->discipline = $discipline->discipline;
                     $student->note = $discipline->note;

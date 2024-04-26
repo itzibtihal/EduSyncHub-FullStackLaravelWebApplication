@@ -36,16 +36,16 @@ class InstitutionsController extends Controller
 
     public function store(Request $request)
 {
-    // Validate the request data
+    
     $request->validate([
         'name' => 'required|string|max:255',
         'city' => 'required|string|max:255',
     ]);
 
-    // Create the institution
+    // Create institution
     $institution = Institution::create($request->all());
 
-    // Attach the user to the institution
+    // Attach user to institution
     $user = auth()->user();
     $user->institutions()->attach($institution->id);
 
@@ -75,7 +75,7 @@ class InstitutionsController extends Controller
     public function destroy($id)
     {
         $institution = Institution::findOrFail($id);
-        $institution->delete(); // Soft delete
+        $institution->delete(); 
 
         return redirect()->route('institutions.index')->with('success', 'Institution deleted successfully.');
     }

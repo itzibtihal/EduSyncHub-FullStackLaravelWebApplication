@@ -17,14 +17,11 @@ class OrganigramController extends Controller
     {
         // $cyclesWithLevels = Cycle::with('levels')->get();
         // $cyclesWithLevelsAndSpecialities = Cycle::with('levels.specialities')->get();
-
         // Fetch default speciality if cycle is not high school
         // $defaultSpeciality = Speciality::where('name', 'Default')->first();
-
         // $cycles = Cycle::with(['levels', 'specialities'])->get();
-
- 
         // return view('Director.organigram.index',compact('cycles'));
+
         $levels = Level::where('cycle_id', 1)->with('levelSpecialities.sections')->get();
         $hlevels = Level::where('cycle_id', 2)->with('levelSpecialities.sections')->get();
     

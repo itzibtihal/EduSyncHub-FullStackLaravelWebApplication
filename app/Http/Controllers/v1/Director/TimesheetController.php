@@ -12,10 +12,23 @@ class TimesheetController extends Controller
     {
         // $timesheets = Timesheet::latest('created_at')->groupBy('user_id')->get();
         $timesheets = Timesheet::select('id', 'user_id','file', 'created_at', 'is_valid')
-    ->whereIn('id', function ($query) {
+        ->whereIn('id', function ($query) {
         $query->selectRaw('MAX(id)')
             ->from('timesheets')
             ->groupBy('user_id');
+            
+        //     SELECT timesheets.file, 
+        //     timesheets.created_at, 
+        //     timesheets.is_valid, 
+        //     users.firstname,
+        //     users.lastname
+        //     FROM timesheets
+        //     JOIN users ON timesheets.user_id = users.id
+        //     WHERE timesheets.id IN (
+        //    SELECT MAX(id)
+        //    FROM timesheets
+        //    GROUP BY users.firstname, users.lastname
+
     })
     ->latest('created_at')
     ->get();

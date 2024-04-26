@@ -13,15 +13,12 @@ class PReportsController extends Controller
 {
     public function index(){
         $userId = Auth::id();
-        $year = date('Y'); // Get the current year
+        $year = date('Y'); // Get  current year
         $timesheet = Timesheet::where('user_id', $userId)->first();
         $yearlyTimesheet = YearlyTimesheet::where('year', $year)->orderBy('created_at', 'desc')->first();
 
         if ($timesheet) {
             $filePath = 'timesheets/' . $timesheet->file;
-           
-           
-
         }
         
         elseif ($yearlyTimesheet) {
@@ -62,7 +59,7 @@ class PReportsController extends Controller
             return back()->with('error', 'File upload failed.'); 
         }
 
-        // Create a new Timesheet record
+      
         $timesheet = new Timesheet();
         $timesheet->user_id = $userId;
         $timesheet->file = $filePath;

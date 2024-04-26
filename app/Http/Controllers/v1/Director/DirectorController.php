@@ -50,6 +50,7 @@ class DirectorController extends Controller
         ->pluck('user_id')
         ->toArray();
 
+        // SELECT user_id FROM user_institution WHERE institution_id IN (1, 2, 3);
     
     $users = User::whereIn('id', $userIds)
         ->where('role_id', 2)

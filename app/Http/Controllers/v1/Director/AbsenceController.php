@@ -35,7 +35,7 @@ class AbsenceController extends Controller
 
     public function store(Request $request)
     {
-        // Access the incoming request data
+        
         $userIds = (array) $request->input('user_id');
         $subjectId = $request->input('subject_id');
         $sectionId = $request->input('section_id');
@@ -43,9 +43,9 @@ class AbsenceController extends Controller
         $endsAt = $request->input('ends_at');
         $reason = $request->input('reason');
 
-        // Loop through each user_id in the array
+        
         foreach ($userIds as $userId) {
-            // Create a new absence record for each user
+            //  new absence  for each user
             $absence = new Absence();
             $absence->created_by = Auth::id();
             $absence->subject_id = $subjectId;
@@ -53,12 +53,10 @@ class AbsenceController extends Controller
             $absence->starts_at = $startsAt;
             $absence->ends_at = $endsAt;
             $absence->reason = $reason;
-            $absence->user_id = $userId; // Assign the user_id
+            $absence->user_id = $userId; 
             $absence->save();
         }
 
-        // Redirect to a success page or return a response
-        // For example:
         return redirect()->route('director.absence')->with('success', 'Absence report(s) have been created successfully.');
     }
 
