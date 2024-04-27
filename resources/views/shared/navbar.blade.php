@@ -81,7 +81,7 @@
 
               
 
-                <a href="{{ route('director.classes') }}" class="{{ request()->routeIs('director.classes') ? 'active' : '' }}">
+                <a href="{{ route('teacher.classes') }}" class="{{ request()->routeIs('teacher.classes') ? 'active' : '' }}">
                     <span class="material-icons-sharp">
                         school
                     </span>

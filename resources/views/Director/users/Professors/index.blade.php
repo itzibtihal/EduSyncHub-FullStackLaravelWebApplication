@@ -44,7 +44,7 @@
                                     <!-- Delete Action -->
                                     <form action="{{ route('professors.delete', $professor->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this professor?')">
                                         @csrf
-                                        @method('DELETE')
+                                      
                                         <button type="submit" class="btn btn-danger btn-sm mr-2" title="Delete Professor">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>

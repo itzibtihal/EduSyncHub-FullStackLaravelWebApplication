@@ -16,7 +16,7 @@
         @if(empty(auth()->user()->avatar))
             <img src="{{ asset('assets/img/img/avatar-1.png') }}" alt="Profile Image" style="width: 100px; border-radius: 50%;">
         @else
-            <img src="{{ asset('storage/' .  auth()->user()->avatar) }}" alt="Profile Image" style="width: 100%; border-radius: 50%;">
+            <img src="{{ asset('storage/' .  auth()->user()->avatar) }}" alt="Profile Image" style="width: 100px; border-radius: 50%;">
         @endif
     </div>
 </div>

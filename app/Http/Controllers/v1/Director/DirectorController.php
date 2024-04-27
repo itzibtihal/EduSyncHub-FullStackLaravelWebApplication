@@ -43,17 +43,18 @@ class DirectorController extends Controller
     
     public function professors()
     {
-        $userInstitutions = auth()->user()->institutions->pluck('id')->toArray();
+    //     $userInstitutions = auth()->user()->institutions->pluck('id')->toArray();
 
     
-    $userIds = UserInstitution::whereIn('institution_id', $userInstitutions)
-        ->pluck('user_id')
-        ->toArray();
+    // $userIds = UserInstitution::whereIn('institution_id', $userInstitutions)
+    //     ->pluck('user_id')
+    //     ->toArray();
 
         // SELECT user_id FROM user_institution WHERE institution_id IN (1, 2, 3);
     
-    $users = User::whereIn('id', $userIds)
-        ->where('role_id', 2)
+ 
+
+        $users = User::where('role_id', 2)
         ->get();
 
 
@@ -63,8 +64,7 @@ class DirectorController extends Controller
             return view('Director.users.professors.index', compact('users'));
         }
 
-        $Professors = User::whereIn('id', $userIds)
-        ->where('role_id', 2)
+        $Professors = User::where('role_id', 2)
         ->latest()
         ->take(4)
         ->get();
